@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15D21" minimumToolsVersion="Xcode 7.0">
+    <entity name="GPSActivity" representedClassName="TriTrainer.GPSActivity" syncable="YES">
+        <attribute name="distance" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="duration" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="timestamp" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="locations" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Location" inverseName="gpsactivity" inverseEntity="Location" syncable="YES"/>
+    </entity>
+    <entity name="Location" representedClassName="TriTrainer.Location" syncable="YES">
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="timestamp" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="gpsactivity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GPSActivity" inverseName="locations" inverseEntity="GPSActivity" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="GPSActivity" positionX="-45" positionY="0" width="128" height="105"/>
+        <element name="Location" positionX="-18" positionY="27" width="128" height="105"/>
+    </elements>
+</model>
