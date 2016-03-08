@@ -10,15 +10,32 @@ import UIKit
 import CoreData
 import CoreLocation
 import CloudKit
+import Contacts
 
 class FeedTableViewController: UITableViewController, ModelDelegate {
 
     
     let model: Model = Model.sharedInstance()
     var activities = [GPSActivity]()
+    var contacts = [CNContact]()
+    
+    @IBOutlet weak var feedSelector: UISegmentedControl!
+    
+    @IBAction func feedChanged(sender: AnyObject) {
+        print("Changed! Feed: \(feedSelector.selectedSegmentIndex)")
+        if (feedSelector.selectedSegmentIndex == 0) {
+            model.showOnlyMyActivities()
+        } else {
+            model.refresh()
+        }
+    }
+    
+    @IBAction func unwindToTable(segue: UIStoryboardSegue) {}
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        getTheContacts()
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -34,9 +51,64 @@ class FeedTableViewController: UITableViewController, ModelDelegate {
 
     }
     
+    func refetchContact(contact contact: CNContact, atIndexPath indexPath: NSIndexPath) {
+        AppDelegate.getAppDelegate().requestForAccess { (accessGranted) -> Void in
+            if accessGranted {
+                // let keys = [CNContactGivenNameKey, CNContactFamilyNameKey, CNContactEmailAddressesKey, CNContactBirthdayKey, CNContactImageDataKey]
+                let keys = [CNContactFormatter.descriptorForRequiredKeysForStyle(CNContactFormatterStyle.FullName), CNContactEmailAddressesKey, CNContactBirthdayKey, CNContactImageDataKey]
+                
+                do {
+                    let contactRefetched = try AppDelegate.getAppDelegate().contactStore.unifiedContactWithIdentifier(contact.identifier, keysToFetch: keys)
+                    self.contacts[indexPath.row] = contactRefetched
+                    
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        print("i am here")
+                    })
+                }
+                catch {
+                    print("Unable to refetch the contact: \(contact)", separator: "", terminator: "\n")
+                }
+            }
+        }
+    }
+    
+    func getTheContacts() {
+        AppDelegate.getAppDelegate().requestForAccess { (accessGranted) -> Void in
+            if accessGranted {
+                // let keys = [CNContactGivenNameKey, CNContactFamilyNameKey, CNContactEmailAddressesKey, CNContactBirthdayKey, CNContactImageDataKey]
+                let keys = [CNContactFormatter.descriptorForRequiredKeysForStyle(CNContactFormatterStyle.FullName), CNContactEmailAddressesKey, CNContactBirthdayKey, CNContactImageDataKey]
+                
+                do {
+                    
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        print("got contacts")
+                    })
+                }
+                catch {
+                    print("Unable to refetch the contact")
+                }
+            }
+        }
+
+    }
+
+
+
+    
     override func viewWillAppear(animated: Bool) {
         //refresh data from model
-        model.refresh()
+        //TODO: Only update if necessary
+        
+        if (feedSelector.selectedSegmentIndex == 0) {
+            //show only my activities
+            model.showOnlyMyActivities()
+            
+        } else if feedSelector.selectedSegmentIndex == 1 {
+            //show all activities
+            model.refresh()
+        } else {
+            print("This should not happen")
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -81,6 +153,10 @@ class FeedTableViewController: UITableViewController, ModelDelegate {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return activities.count
+    }
+    
+    override func tableView(tableView: UITableView, estimatedHeightForFooterInSection section: Int) -> CGFloat {
+        return UITableViewAutomaticDimension
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

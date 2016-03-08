@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		113FFB271C886A820085641C /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113FFB261C886A820085641C /* SettingsVC.swift */; };
 		1149A0C31C7BF78300E77418 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1149A0C21C7BF78300E77418 /* AppDelegate.swift */; };
 		1149A0C71C7BF78300E77418 /* NewActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1149A0C61C7BF78300E77418 /* NewActivityViewController.swift */; };
 		1149A0CA1C7BF78300E77418 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1149A0C81C7BF78300E77418 /* Main.storyboard */; };
@@ -29,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		113FFB261C886A820085641C /* SettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		1149A0BF1C7BF78300E77418 /* TriTrainer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TriTrainer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1149A0C21C7BF78300E77418 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1149A0C61C7BF78300E77418 /* NewActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewActivityViewController.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 				1149A0C21C7BF78300E77418 /* AppDelegate.swift */,
 				116745E01C84BEEA005767C0 /* FeedTableViewController.swift */,
 				116745E61C84ED4B005767C0 /* ActivityDetailVC.swift */,
+				113FFB261C886A820085641C /* SettingsVC.swift */,
 				116745E41C84E428005767C0 /* ActivityCell.swift */,
 				1149A0C61C7BF78300E77418 /* NewActivityViewController.swift */,
 				11F0DF881C83B3E900FA75F1 /* TabBarViewController.swift */,
@@ -282,6 +285,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				113FFB271C886A820085641C /* SettingsVC.swift in Sources */,
 				116745E51C84E428005767C0 /* ActivityCell.swift in Sources */,
 				116745DB1C84A524005767C0 /* Model.swift in Sources */,
 				1149A0C71C7BF78300E77418 /* NewActivityViewController.swift in Sources */,

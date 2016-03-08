@@ -22,6 +22,8 @@ class UserInfo {
         self.container = container;
     }
     
+    /// Attribution: Ray Wonderlich iOS 8 By Tutorials
+    
     func loggedInToICloud(completion : (accountStatus : CKAccountStatus, error : NSError!) -> ()) {
         //replace this stub
         completion(accountStatus: .CouldNotDetermine, error: nil)

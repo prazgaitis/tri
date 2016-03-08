@@ -32,18 +32,20 @@ class GPSActivity: NSObject {
     var timestamp: NSDate
     var locations: [CLLocation]
     var activityType: String
+    var username: String
     
-    init(duration: Double, distance: Double, timestamp: NSDate, locations: [CLLocation], activityType: String) {
+    init(duration: Double, distance: Double, timestamp: NSDate, locations: [CLLocation], activityType: String, username: String) {
         self.timestamp = timestamp
         self.distance = distance
         self.duration = duration
         self.locations = locations
         self.activityType = activityType
+        self.username = username
     }
     
     convenience override init() {
         let locat = [CLLocation]()
-        self.init(duration: 10.0, distance: 10.0, timestamp: NSDate(), locations: locat, activityType: "run")
+        self.init(duration: 10.0, distance: 10.0, timestamp: NSDate(), locations: locat, activityType: "run", username: "username")
     }
     
     //--- cloudkit stuff
@@ -51,7 +53,7 @@ class GPSActivity: NSObject {
     var record: CKRecord!
     weak var database: CKDatabase!
     
-    init(record : CKRecord, database: CKDatabase, duration: Double, distance: Double, timestamp: NSDate, locations: [CLLocation], activityType: String) {
+    init(record : CKRecord, database: CKDatabase, duration: Double, distance: Double, timestamp: NSDate, locations: [CLLocation], activityType: String, username: String) {
         self.record = record
         self.database = database
         
@@ -59,6 +61,7 @@ class GPSActivity: NSObject {
         self.distance = distance
         self.duration = duration
         self.locations = locations
+        self.username = username
 
         
         self.activityType = record.objectForKey("ActivityType") as! String

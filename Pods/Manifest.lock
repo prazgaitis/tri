@@ -1,10 +1,15 @@
 PODS:
-  - Firebase (2.5.1)
+  - Realm (0.98.3):
+    - Realm/Headers (= 0.98.3)
+  - Realm/Headers (0.98.3)
+  - RealmSwift (0.98.3):
+    - Realm (= 0.98.3)
 
 DEPENDENCIES:
-  - Firebase (>= 2.5.0)
+  - RealmSwift
 
 SPEC CHECKSUMS:
-  Firebase: 3565ea88b830f28f2c77ecc524622bc71a20d085
+  Realm: c6a7d00221a2d5177810a674aebd40c5e0b70b0f
+  RealmSwift: d6ecad6e4c2a645d6ac956c2c7e9efb375f39c31
 
 COCOAPODS: 0.39.0

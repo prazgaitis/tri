@@ -12,11 +12,7 @@ import CoreData
 class TabBarViewController: UITabBarController {
 
     override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        
-        var managedObjectContext: NSManagedObjectContext?
-        
+        super.viewDidLoad()        
         //set the managedObjectContext of the destinationViewController
 
     }

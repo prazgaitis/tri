@@ -95,15 +95,35 @@ var str = "Hello, playground"
 //--------------
 
 let seconds = 3.0
-let distance = 8.0
+let distance = 0.0
+var paceLabel : String
 
+
+//Calculate Average pace
+// TODO: FIX PACE
 let metersInMile = 1609.34
-
 let minutesPerMile = (seconds/60.0) / (distance/metersInMile)
-let mins = Int(minutesPerMile)
-let secs = Int((minutesPerMile % 1) * 60.0)
+let mins = minutesPerMile
+let secs = (minutesPerMile % 1) * 60.0
 
-var paceString = String(format: "%02d:%02d", mins, secs)
-let distanceString = String(format: "%.3f", (distance / 1609.34))
+let paceString = String(format: "%2.f:%02.f", mins, secs)
+
+print("Pace: \(distance) || \(seconds) -- > m/s = \(distance/seconds)")
+
+if secs.isNaN {
+    paceLabel = "0:00:00"
+} else {
+    paceLabel = paceString
+}
+
+paceLabel
+
+
+
+var username = NSUserName()
+
+
+
+
 
 
