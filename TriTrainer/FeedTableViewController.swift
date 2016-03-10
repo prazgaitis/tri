@@ -16,7 +16,8 @@ class FeedTableViewController: UITableViewController, ModelDelegate {
 
     
     let model: Model = Model.sharedInstance()
-    var activities = [GPSActivity]()
+    let color: Colors = Colors()
+    var activities = [Activity]()
     var contacts = [CNContact]()
     
     @IBOutlet weak var feedSelector: UISegmentedControl!
@@ -35,13 +36,10 @@ class FeedTableViewController: UITableViewController, ModelDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.backgroundColor = UIColor.blackColor()
+        self.feedSelector.tintColor = color.mainGreen
+        
         getTheContacts()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
         model.delegate = self
         
@@ -99,6 +97,8 @@ class FeedTableViewController: UITableViewController, ModelDelegate {
         //refresh data from model
         //TODO: Only update if necessary
         
+        print("firing view will appear")
+        
         if (feedSelector.selectedSegmentIndex == 0) {
             //show only my activities
             model.showOnlyMyActivities()
@@ -134,7 +134,7 @@ class FeedTableViewController: UITableViewController, ModelDelegate {
         
         if model.items.count > 0 {
             for activity in model.items {
-                print("\(activity.activityType) -- \(activity.timestamp)")
+                print("\(activity.activityType) -- \(activity.timestamp) -- \(activity.creatorName)")
             }
         } else {
             print("zero items, yo!")
@@ -158,25 +158,59 @@ class FeedTableViewController: UITableViewController, ModelDelegate {
     override func tableView(tableView: UITableView, estimatedHeightForFooterInSection section: Int) -> CGFloat {
         return UITableViewAutomaticDimension
     }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let selectedCell: ActivityCell = tableView.cellForRowAtIndexPath(indexPath) as! ActivityCell
+        selectedCell.backgroundColor = color.mainDarkGray
+        selectedCell.nameLabel.textColor = color.mainGreen
+        print("didSelect Cell")
+    }
+    
+    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+        let selectedCell: ActivityCell = tableView.cellForRowAtIndexPath(indexPath) as! ActivityCell
+        selectedCell.backgroundColor = color.mainDarkGray
+        selectedCell.nameLabel.textColor = color.mainGreen
+        print("did-DE-Select Cell")
+    }
+    
+    override func tableView(tableView: UITableView, didHighlightRowAtIndexPath indexPath: NSIndexPath) {
+        let selectedCell: ActivityCell = tableView.cellForRowAtIndexPath(indexPath) as! ActivityCell
+        selectedCell.selectionStyle = .None
+        selectedCell.contentView.backgroundColor = color.mainDarkGray
+        selectedCell.nameLabel.textColor = color.mainGreen
+        print("didHighlight Cell")
+    }
+
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cellIdentifier = "activityCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! ActivityCell
         let activity = activities[indexPath.row]
-
-        let distanceString = String(format: "%.3f", (activity.distance / 1609.34))
         
         let formatter = NSDateFormatter()
         formatter.dateFormat = "yyyy-MM-dd hh:mm:ss.SSSSxxx"
         formatter.dateStyle = .MediumStyle
-        formatter.timeStyle = .MediumStyle
+        formatter.timeStyle = .ShortStyle
         
         let dateString = formatter.stringFromDate(activity.timestamp)
+        
+        let creatorName = activity.creatorName
 
         // Configure the cell...
-        cell.activityType.text = activity.activityType
-        cell.distance.text = String("\(distanceString) mi")
-        cell.timestamp.text = dateString
+        
+        cell.backgroundColor = UIColor.blackColor()
+        if (activity.activityType == "swim") {
+            let distanceString = String(format: "%.1f", activity.distance)
+            cell.distance.text = String("\(distanceString) m")
+        } else {
+            let distanceString = String(format: "%.1f", (activity.distance / 1609.34))
+            cell.distance.text = String("\(distanceString) mi")
+        }
+        
+        cell.distance.textColor = color.mainGreen
+        cell.dateLabel.text = dateString.uppercaseString
+        cell.nameLabel.text = creatorName
+        cell.nameLabel.textColor = UIColor.lightTextColor()
         
         return cell
     }

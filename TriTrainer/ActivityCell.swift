@@ -11,10 +11,10 @@ import UIKit
 class ActivityCell: UITableViewCell {
 
     //MARK: Properties
-    
-    @IBOutlet weak var activityType: UILabel!
+
     @IBOutlet weak var distance: UILabel!
-    @IBOutlet weak var timestamp: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

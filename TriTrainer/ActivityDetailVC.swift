@@ -13,21 +13,36 @@ import HealthKit
 
 class ActivityDetailVC: UIViewController {
     
-    var activity: GPSActivity!
-
-    @IBOutlet weak var distance: UILabel!
-    @IBOutlet weak var duration: UILabel!
+    var activity: Activity!
+    
     @IBOutlet weak var activityType: UILabel!
     @IBOutlet weak var timestamp: UILabel!
+    @IBOutlet weak var paceLabel: UILabel!
+    @IBOutlet weak var duration: UILabel!
+    @IBOutlet weak var distance: UILabel!
     @IBOutlet weak var mapview: MKMapView!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupView()
+        //placeLabels()
         
-        let distanceString = String(format: "%.3f", (activity!.distance / 1609.34))
+        print("Locations: \(activity.locations?.count)")
+        
+        //check if activity needs a map
+        
+        // check if locations are nil
+        if (activity.locations != nil) && (activity.locations?.count > 0) {
+            print("setting up map")
+            mapview.delegate = self
+            setUpMap()
+        } else {
+            print("activity is a swim, no map")
+            mapview.hidden = true
+        }
+        
+        let distanceString = String(format: "%.2f", (activity!.distance / 1609.34))
         
         let formatter = NSDateFormatter()
         formatter.dateFormat = "yyyy-MM-dd hh:mm:ss.SSSSxxx"
@@ -59,8 +74,15 @@ class ActivityDetailVC: UIViewController {
             hoursString = "0\(hoursString)"
         }
         
-        
         let durationString = "\(hoursString):\(minutesString):\(secondsString)"
+        
+        //set pace string
+        let metersInMile = 1609.34
+        let minutesPerMile = (activity.duration/60.0) / (activity.distance/metersInMile)
+        let mins = minutesPerMile
+        let secs = (minutesPerMile % 1) * 60.0
+        
+        paceLabel.text = String(format: "%2.f:%02.f /mi", mins, secs)
 
         
         // end duration -------------
@@ -74,12 +96,16 @@ class ActivityDetailVC: UIViewController {
 
         // Do any additional setup after loading the view.
     }
+    
+//    func placeLabels(){
+//        distance.frame = CGRectMake(0.0, 0.0, 200.0, 200.0)
+//    }
 
 
     
     @IBAction func unwindToTableView(sender: AnyObject) {
-        
-        //self.performSegueWithIdentifier("unwindToFeed", sender: self)
+        print("unwinding to feed")
+        self.performSegueWithIdentifier("unwindToFeed", sender: self)
     }
     
     override func didReceiveMemoryWarning() {
@@ -92,62 +118,72 @@ class ActivityDetailVC: UIViewController {
     //MARK: MapView stuff
     
     func mapRegion() -> MKCoordinateRegion {
-        let initialLocation = activity.locations.first
+        
+        // activity should definitely have at least one location if we got to here
+        let initialLocation = activity.locations!.first
+        
         
         //testing map
-        let startLat = activity.locations.first?.coordinate.latitude
-        let startLng = activity.locations.first?.coordinate.longitude
-        let startLL = CLLocationCoordinate2DMake(startLat!, startLng!)
+        var minLat = initialLocation!.coordinate.latitude
+        var minLng = initialLocation!.coordinate.longitude
+        var maxLat = minLat
+        var maxLng = minLng
         
-        let startSpan = MKCoordinateSpanMake(Double(10.0), Double(10.0))
+        // iterate through all locations.
+        // this ensures mapview contains all bounds
         
-        //get the first coordinates Lat/Lng
-        var minimumLat = initialLocation?.coordinate.latitude
-        var minimumLng = initialLocation?.coordinate.longitude
-        
-        //set max == min before iterating through all
-        var maximumLat = minimumLat
-        var maximumLng = minimumLng
-        
-        for loc in activity.locations {
-            minimumLat = min(minimumLat!, loc.coordinate.latitude)
-            minimumLng = min(minimumLng!, loc.coordinate.longitude)
-            maximumLat = max(maximumLat!, loc.coordinate.latitude)
-            maximumLng = max(maximumLng!, loc.coordinate.longitude)
+        for point in activity.locations! {
+            
+            //check if current min is smaller than current point
+            minLat = min(minLat, point.coordinate.latitude)
+            minLng = min(minLng, point.coordinate.longitude)
+            
+            //same for max
+            maxLat = max(maxLat, point.coordinate.latitude)
+            maxLng = max(maxLng, point.coordinate.longitude)
         }
         
-        print(initialLocation)
+        let centerOfRun = CLLocationCoordinate2DMake((minLat + maxLat)/2, (minLng + maxLng)/2)
         
-        //get center of mapview
-        //return MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: (minimumLat! + maximumLat!)/2, longitude: (minimumLng! + maximumLat!)/2), span: MKCoordinateSpan(latitudeDelta: (maximumLat! - minimumLat!) * 1.1, longitudeDelta: (maximumLng! - minimumLng!) * 1.1))
-        return MKCoordinateRegionMake(startLL, startSpan)
+        let padding = 2.25
+        
+        let mapSpan = MKCoordinateSpan(latitudeDelta: (maxLat-minLat)*padding, longitudeDelta: (maxLng - minLng)*padding)
+        
+        return MKCoordinateRegionMake(centerOfRun, mapSpan)
     }
     
-//    func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKPolyline! {
-//        if !overlay.isKindOfClass(MKPolyline) {
-//            return nil
-//        }
-//        
-//        let polyline = overlay as! MKPolyline
-//        let renderer = MKPolyline()
-//        return renderer
-//    }
+    func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
+        if !overlay.isKindOfClass(MKPolyline) {
+            print("overlay failed")
+        }
+        print("rendering overlay")
+        
+        let polyline = overlay as? MKPolyline
+        let renderer = MKPolylineRenderer(polyline: polyline!)
+        renderer.strokeColor = UIColor.redColor()
+        renderer.lineWidth = 3
+        
+        return renderer
+
+    }
     
     func polyline() -> MKPolyline {
         var coords = [CLLocationCoordinate2D]()
         
         let locations = activity.locations
-        for location in locations {
+        for location in locations! {
             coords.append(CLLocationCoordinate2D(latitude: location.coordinate.latitude,
                 longitude: location.coordinate.longitude))
         }
         
-        return MKPolyline(coordinates: &coords, count: activity.locations.count)
+        print("LOCATIONS COUNT: \(locations!.count)")
+        return MKPolyline(coordinates: &coords, count: activity.locations!.count)
     }
 
     
-    func setupView() {
-        mapview.region = mapRegion()
+    func setUpMap() {
+        mapview!.region = mapRegion()
+        mapview!.addOverlay(polyline())
     }
     
 

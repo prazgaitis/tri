@@ -116,11 +116,22 @@ if secs.isNaN {
     paceLabel = paceString
 }
 
-paceLabel
-
-
 
 var username = NSUserName()
+
+var hh: Int = 0
+var mm: Int = 0
+var ss: Int = 0
+var hString = String(00)
+var mString = String(00)
+var sString = String(00)
+
+
+mString = String(format: "%02d", mm)
+sString = String(format: "%02d", ss)
+hString = String(format: "%02d", hh)
+
+var theString = "\(hString):\(mString):\(sString)"
 
 
 

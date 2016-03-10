@@ -9,30 +9,21 @@
 import Foundation
 import CoreData
 
-//class Location: NSManagedObject {
-//    
-//    @NSManaged var timestamp: NSDate
-//    @NSManaged var latitude: NSNumber
-//    @NSManaged var longitude: NSNumber
-//    @NSManaged var gpsactivity: NSManagedObject
-//    
-//}
-
 class Location {
     
     var timestamp: NSDate
     var latitude: Double
     var longitude: Double
-    var gpsactivity: GPSActivity
+    var activity: Activity
     
-    init(timestamp: NSDate, latitude: Double, longitude: Double, gpsactivity: GPSActivity) {
+    init(timestamp: NSDate, latitude: Double, longitude: Double, activity: Activity) {
         self.timestamp = timestamp
         self.latitude = latitude
         self.longitude = longitude
-        self.gpsactivity = gpsactivity
+        self.activity = activity
     }
     
     convenience init() {
-        self.init(timestamp: NSDate(),latitude: 100.00, longitude: 100.00, gpsactivity: GPSActivity())
+        self.init(timestamp: NSDate(),latitude: 100.00, longitude: 100.00, activity: Activity())
     }
 }

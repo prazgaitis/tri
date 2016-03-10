@@ -23,7 +23,7 @@ class NewActivityViewController: UIViewController, UIGestureRecognizerDelegate, 
     let model: Model = Model.sharedInstance()
     
     //MARK: Properties
-    var gpsactivity: GPSActivity!
+    var activity: Activity?
     var activityType: String?
     var seconds = 0.0
     var distance = 0.0
@@ -54,19 +54,12 @@ class NewActivityViewController: UIViewController, UIGestureRecognizerDelegate, 
         CLM.activityType = .Fitness
         
         //How often to update events
-        CLM.distanceFilter = 10.0
+        CLM.distanceFilter = 5.0
         return CLM
     }()
     
     lazy var locations = [CLLocation]()
     lazy var timer = NSTimer()
-    
-    //MARK: Activity Selectors
-
-//    @IBOutlet weak var stackView: UIStackView!
-//    @IBOutlet weak var selectRun: UIView!
-//    @IBOutlet weak var selectSwim: UIView!
-//    @IBOutlet weak var selectBike: UIView!
     
     //MARK: View LifeCycle Methods
     
@@ -83,31 +76,6 @@ class NewActivityViewController: UIViewController, UIGestureRecognizerDelegate, 
         pauseButton.hidden = true
         finishButton.hidden = true
         
-        
-        //timerImage.image = UIImage(named: "timer")
-        //timerImage.hidden = true
-        
-        //CoreData stuff - probably don't need
-        //let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        //self.managedObjectContext = appDelegate.managedObjectContext
-        
-        // Hide in-activity views
-//        timeElapsedLabel.hidden = true
-//        distanceLabel.hidden    = true
-//        paceLabel.hidden        = true
-//        startButton.hidden      = true
-//        pauseButton.hidden      = true
-//        stopButton.hidden       = true
-        
-//        //add tags & Tap Gesture Recognizers to UIViews
-//        
-//        let views = [selectRun, selectBike, selectSwim]
-//        
-//        for (index, view) in views.enumerate() {
-//            addGesturesToView(view)
-//            view.tag = index
-//        }
-        //will request to use location from user
         locationManager.requestAlwaysAuthorization()
         //locationManager.requestWhenInUseAuthorization()
     }
@@ -124,16 +92,8 @@ class NewActivityViewController: UIViewController, UIGestureRecognizerDelegate, 
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        //show in-activity stuff
-//        self.timeElapsedLabel.hidden = false
-//        self.distanceLabel.hidden    = false
-//        self.paceLabel.hidden        = false
-//        self.startButton.hidden      = false
-//        self.pauseButton.hidden      = false
-//        self.stopButton.hidden       = false
-//        self.timerImage.hidden       = false
+        print("TYPE: \(activityType)")
         
-        self.activityType = "run"
     }
 
     override func didReceiveMemoryWarning() {
@@ -142,59 +102,7 @@ class NewActivityViewController: UIViewController, UIGestureRecognizerDelegate, 
     }
     
     
-//    //MARK: Gesture Recognizers
-//    
-//    func selectedActivity(recognizer: UITapGestureRecognizer) {
-//        
-//        //sender is UITapGestureRecognizer
-//        
-//        //change background color of selected view
-//        if recognizer.state == UIGestureRecognizerState.Ended {
-//            recognizer.view!.backgroundColor = UIColor.greenColor()
-//        }
-//        
-//        //check tag to see which was selected
-//        switch recognizer.view!.tag {
-//        case 0:
-//            print("run")
-//            activityType = "run"
-//        case 1:
-//            print("bike")
-//            activityType = "bike"
-//        case 2:
-//            print("swim")
-//            //redirect to swim thing
-//        default:
-//            return
-//        }
-//        
-//        //remove the View
-//        UIView.animateWithDuration(0.2, delay: 0.1, options: UIViewAnimationOptions.CurveEaseIn, animations: { () -> Void in
-//            self.stackView.center.y = self.stackView.center.y - 600
-//            }, completion: { (callback) -> Void in
-//                
-//                //do something when animation completes
-//                //self.stackView.removeFromSuperview()
-//                self.stackView.hidden = true
-//                
-//                //show in-activity stuff
-//                self.timeElapsedLabel.hidden = false
-//                self.distanceLabel.hidden    = false
-//                self.paceLabel.hidden        = false
-//                self.startButton.hidden      = false
-//                self.pauseButton.hidden      = false
-//                self.stopButton.hidden       = false
-//                self.timerImage.hidden       = false
-//        })
-//    }
-//    
-//    func addGesturesToView(view: UIView) {
-//        
-//        let tap = UITapGestureRecognizer(target: self, action: "selectedActivity:")
-//        tap.delegate = self
-//        view.addGestureRecognizer(tap)
-//        
-//    }
+
     
     //MARK: CLLocationManager stuff
     
@@ -244,7 +152,7 @@ class NewActivityViewController: UIViewController, UIGestureRecognizerDelegate, 
         let mins = minutesPerMile
         let secs = (minutesPerMile % 1) * 60.0
         
-        let paceString = String(format: "%2.f:%02.f min/mi", mins, secs)
+        let paceString = String(format: "%2.f:%02.f /mi", mins, secs)
         
         print("Pace: \(distance) || \(seconds) -- > m/s = \(distance/seconds)")
         
@@ -331,28 +239,34 @@ class NewActivityViewController: UIViewController, UIGestureRecognizerDelegate, 
     
     func saveActivity() {
         
-        //create activity object to save
-        //let savedActivity = NSEntityDescription.insertNewObjectForEntityForName("GPSActivity", inManagedObjectContext: managedObjectContext!) as! GPSActivity
-        
-        print(NSUserName())
+        //check to make sure we know who is logging the activity
+        if (model.currentLoggedInUser == nil) && (model.currentLoggedInUserID == nil)  {
+            print("CAN'T GET USERS DATA")
+            return
+        }
         
         //save all of the location data
-        let savedActivity = GPSActivity(duration: seconds, distance: distance, timestamp: NSDate(), locations: locations, activityType: activityType!, username: NSUserName())
+        let savedActivity = Activity(duration: seconds, distance: distance, timestamp: NSDate(), locations: locations, activityType: activityType!, creatorName: model.currentLoggedInUser!, creatorID: model.currentLoggedInUserID!)
 
         
         print("Saved!\n-----\n\nPoints:")
         
-        for point in savedActivity.locations {
-            print("Lat: \(point.coordinate.latitude), Lon: \(point.coordinate.longitude)")
+        if savedActivity.locations != nil {
+            for point in savedActivity.locations! {
+                print("Lat: \(point.coordinate.latitude), Lon: \(point.coordinate.longitude)")
+            }
+        } else {
+            print("there are no locations. This is probably a swim activity type")
         }
+        
         
         print("Distance: \(savedActivity.distance)")
         print("Duration (s): \(savedActivity.duration)")
         print("Timestamp: \(savedActivity.timestamp)")
         print("Type: \(savedActivity.activityType)")
-        print("UN: \(savedActivity.username)")
+        print("User: \(savedActivity.creatorName)")
         
-        gpsactivity = savedActivity
+        activity = savedActivity
         
         stopUpdatingLocation()
         
@@ -362,36 +276,29 @@ class NewActivityViewController: UIViewController, UIGestureRecognizerDelegate, 
         
         //create record
         var record : CKRecord!
-        record = CKRecord(recordType: "GPSActivity")
+        record = CKRecord(recordType: "Activity")
         record.setValue(self.seconds, forKey: "Duration")
         record.setValue(self.distance, forKey: "Distance")
         record.setValue(NSDate(), forKey: "Timestamp")
         record.setValue(self.locations, forKey: "Locations")
         record.setValue(self.activityType!, forKey: "ActivityType")
-        record.setValue(NSUserName(), forKey: "Username")
-
         
-        
-        //get username
-        let username = model.userInfo.userID(){
-            userID, error in
-            if let userRecord = userID {
-                let userRef = CKReference(recordID: userRecord,
-                    action: .None)
-                
-                //set record attributes
-//                record = CKRecord(recordType: "GPSActivity")
-//                record.setValue(self.seconds, forKey: "Duration")
-//                record.setValue(self.distance, forKey: "Distance")
-//                record.setValue(NSDate(), forKey: "Timestamp")
-//                record.setValue(self.locations, forKey: "Locations")
-//                record.setValue(self.activityType!, forKey: "ActivityType")
-//                record.setValue(NSUserName(), forKey: "Username")
-                
-            }
+        //add users name to object
+        if let user = model.currentLoggedInUser {
+            record.setValue(user, forKey: "CreatorName")
+        } else {
+            record.setValue("First Last", forKey: "CreatorName")
         }
         
+        //add users unique ID name to object
+        if let user = model.currentLoggedInUserID {
+            record.setValue(user, forKey: "CreatorID")
+        } else {
+            record.setValue("thisIDisNil", forKey: "CreatorID")
+        }
+
         
+        //save record
         publicDB.saveRecord(record) { savedRecord, error in
             if error != nil {
                 print("Error: \(error)")
@@ -401,17 +308,12 @@ class NewActivityViewController: UIViewController, UIGestureRecognizerDelegate, 
                 print("Saved to cloudkit successfully!")
                 
                 dispatch_async(dispatch_get_main_queue(),{
-                    self.performSegueWithIdentifier("postWorkout", sender: self)
-                    //self.seggit()
+                    self.performSegueWithIdentifier("postGPSActivity", sender: self)
                 })
             }
         }
         
     }
-    
-//    func doSegue(){
-//        self.performSegueWithIdentifier("postWorkout", sender: self)
-//    }
     
     //MARK: Cloudkit Stuff
     func errorUpdating(error: NSError) {
@@ -422,29 +324,15 @@ class NewActivityViewController: UIViewController, UIGestureRecognizerDelegate, 
         print("updated! - from NewActivityVC")
     }
     
-    func seggit() {
-        let destinationVC = ActivityDetailVC()
-        destinationVC.activity = gpsactivity
-        
-        let navController = UINavigationController(rootViewController: destinationVC)
-        let backButton = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.Plain, target: self, action: "goBack")
-        navController.navigationItem.leftBarButtonItem = backButton
-        self.presentViewController(navController, animated: true, completion: nil)
-        
-    }
-    
-    //segue
+    //MARK: Navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
-        if segue.identifier == "postWorkout"
+        if segue.identifier == "postGPSActivity"
         {
             if let destinationVC = segue.destinationViewController as? ActivityDetailVC {
-                destinationVC.activity = gpsactivity!
-                
+                destinationVC.activity = activity!
                 let navController = UINavigationController(rootViewController: destinationVC)
-
                 self.presentViewController(navController, animated: true, completion: nil)
-   
             }
         }
     }

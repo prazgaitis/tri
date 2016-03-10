@@ -7,7 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		113FFB271C886A820085641C /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113FFB261C886A820085641C /* SettingsVC.swift */; };
+		1100CFE31C8E999C002C2238 /* ActivityPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1100CFE21C8E999C002C2238 /* ActivityPicker.swift */; };
+		1100CFE51C8E9A59002C2238 /* ActivityPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1100CFE41C8E9A59002C2238 /* ActivityPickerVC.swift */; };
+		1100CFE71C8EAD69002C2238 /* NewSwimVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1100CFE61C8EAD69002C2238 /* NewSwimVC.swift */; };
+		112DE0DB1C9138300026D98D /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112DE0DA1C91382F0026D98D /* Colors.swift */; };
+		113FFB271C886A820085641C /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113FFB261C886A820085641C /* ProfileVC.swift */; };
 		1149A0C31C7BF78300E77418 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1149A0C21C7BF78300E77418 /* AppDelegate.swift */; };
 		1149A0C71C7BF78300E77418 /* NewActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1149A0C61C7BF78300E77418 /* NewActivityViewController.swift */; };
 		1149A0CA1C7BF78300E77418 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1149A0C81C7BF78300E77418 /* Main.storyboard */; };
@@ -22,15 +26,18 @@
 		116745E71C84ED4B005767C0 /* ActivityDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116745E61C84ED4B005767C0 /* ActivityDetailVC.swift */; };
 		11F0DF7C1C81718300FA75F1 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11F0DF7B1C81718300FA75F1 /* MapKit.framework */; };
 		11F0DF7E1C8171A300FA75F1 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11F0DF7D1C8171A300FA75F1 /* HealthKit.framework */; };
-		11F0DF811C82914900FA75F1 /* GPSActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F0DF801C82914900FA75F1 /* GPSActivity.swift */; };
+		11F0DF811C82914900FA75F1 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F0DF801C82914900FA75F1 /* Activity.swift */; };
 		11F0DF841C8296EF00FA75F1 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F0DF831C8296EF00FA75F1 /* Location.swift */; };
-		11F0DF861C82973D00FA75F1 /* Swim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F0DF851C82973D00FA75F1 /* Swim.swift */; };
 		11F0DF891C83B3E900FA75F1 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F0DF881C83B3E900FA75F1 /* TabBarViewController.swift */; };
 		F1E846DF76CD86E4274224B1 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B9F783C9AB5DB966F41C03C /* Pods.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		113FFB261C886A820085641C /* SettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
+		1100CFE21C8E999C002C2238 /* ActivityPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityPicker.swift; sourceTree = "<group>"; };
+		1100CFE41C8E9A59002C2238 /* ActivityPickerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityPickerVC.swift; sourceTree = "<group>"; };
+		1100CFE61C8EAD69002C2238 /* NewSwimVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewSwimVC.swift; sourceTree = "<group>"; };
+		112DE0DA1C91382F0026D98D /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		113FFB261C886A820085641C /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		1149A0BF1C7BF78300E77418 /* TriTrainer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TriTrainer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1149A0C21C7BF78300E77418 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1149A0C61C7BF78300E77418 /* NewActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewActivityViewController.swift; sourceTree = "<group>"; };
@@ -48,9 +55,8 @@
 		11F0DF7B1C81718300FA75F1 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		11F0DF7D1C8171A300FA75F1 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		11F0DF7F1C8171A300FA75F1 /* TriTrainer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = TriTrainer.entitlements; sourceTree = "<group>"; };
-		11F0DF801C82914900FA75F1 /* GPSActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GPSActivity.swift; path = Model/GPSActivity.swift; sourceTree = "<group>"; };
+		11F0DF801C82914900FA75F1 /* Activity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Activity.swift; path = Model/Activity.swift; sourceTree = "<group>"; };
 		11F0DF831C8296EF00FA75F1 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
-		11F0DF851C82973D00FA75F1 /* Swim.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Swim.swift; sourceTree = "<group>"; };
 		11F0DF871C838CE300FA75F1 /* timing.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = timing.playground; path = ../timing.playground; sourceTree = "<group>"; };
 		11F0DF881C83B3E900FA75F1 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		8B9F783C9AB5DB966F41C03C /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -96,13 +102,17 @@
 		1149A0C11C7BF78300E77418 /* TriTrainer */ = {
 			isa = PBXGroup;
 			children = (
-				11F0DF821C8296D600FA75F1 /* Model */,
 				1149A0C21C7BF78300E77418 /* AppDelegate.swift */,
+				112DE0DA1C91382F0026D98D /* Colors.swift */,
+				11F0DF821C8296D600FA75F1 /* Model */,
 				116745E01C84BEEA005767C0 /* FeedTableViewController.swift */,
+				1100CFE21C8E999C002C2238 /* ActivityPicker.swift */,
 				116745E61C84ED4B005767C0 /* ActivityDetailVC.swift */,
-				113FFB261C886A820085641C /* SettingsVC.swift */,
+				1100CFE61C8EAD69002C2238 /* NewSwimVC.swift */,
+				113FFB261C886A820085641C /* ProfileVC.swift */,
 				116745E41C84E428005767C0 /* ActivityCell.swift */,
 				1149A0C61C7BF78300E77418 /* NewActivityViewController.swift */,
+				1100CFE41C8E9A59002C2238 /* ActivityPickerVC.swift */,
 				11F0DF881C83B3E900FA75F1 /* TabBarViewController.swift */,
 				1149A0C81C7BF78300E77418 /* Main.storyboard */,
 				1149A0CD1C7BF78300E77418 /* LaunchScreen.storyboard */,
@@ -120,8 +130,7 @@
 			children = (
 				116745E21C84BF47005767C0 /* UserInfo.swift */,
 				116745DA1C84A524005767C0 /* Model.swift */,
-				11F0DF801C82914900FA75F1 /* GPSActivity.swift */,
-				11F0DF851C82973D00FA75F1 /* Swim.swift */,
+				11F0DF801C82914900FA75F1 /* Activity.swift */,
 				11F0DF831C8296EF00FA75F1 /* Location.swift */,
 			);
 			name = Model;
@@ -285,19 +294,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				113FFB271C886A820085641C /* SettingsVC.swift in Sources */,
+				113FFB271C886A820085641C /* ProfileVC.swift in Sources */,
 				116745E51C84E428005767C0 /* ActivityCell.swift in Sources */,
 				116745DB1C84A524005767C0 /* Model.swift in Sources */,
 				1149A0C71C7BF78300E77418 /* NewActivityViewController.swift in Sources */,
+				1100CFE31C8E999C002C2238 /* ActivityPicker.swift in Sources */,
 				116745E11C84BEEA005767C0 /* FeedTableViewController.swift in Sources */,
-				11F0DF861C82973D00FA75F1 /* Swim.swift in Sources */,
+				1100CFE51C8E9A59002C2238 /* ActivityPickerVC.swift in Sources */,
 				116745E31C84BF47005767C0 /* UserInfo.swift in Sources */,
 				1149A0C31C7BF78300E77418 /* AppDelegate.swift in Sources */,
+				112DE0DB1C9138300026D98D /* Colors.swift in Sources */,
 				116745B61C83FA0C005767C0 /* TriTrainer.xcdatamodeld in Sources */,
 				11F0DF841C8296EF00FA75F1 /* Location.swift in Sources */,
 				11F0DF891C83B3E900FA75F1 /* TabBarViewController.swift in Sources */,
+				1100CFE71C8EAD69002C2238 /* NewSwimVC.swift in Sources */,
 				116745E71C84ED4B005767C0 /* ActivityDetailVC.swift in Sources */,
-				11F0DF811C82914900FA75F1 /* GPSActivity.swift in Sources */,
+				11F0DF811C82914900FA75F1 /* Activity.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
