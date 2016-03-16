@@ -114,7 +114,6 @@ class NewActivityViewController: UIViewController, UIGestureRecognizerDelegate, 
         let secondsQuantity = HKQuantity(unit: HKUnit.secondUnit(), doubleValue: seconds)
         
         // --------------
-        //THIS IS A HACK JOB: FIX IT!
         let totalSeconds = secondsQuantity.doubleValueForUnit(HKUnit.secondUnit())
         let numSeconds = totalSeconds % 60
         let numMinutes = floor((totalSeconds / 60) % 60)

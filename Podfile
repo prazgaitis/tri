@@ -7,6 +7,6 @@ use_frameworks!
 target 'TriTrainer' do
     pod 'PNChartSwift',:git => 'https://github.com/kevinzhow/PNChart-Swift.git'
     pod 'Static', git: 'https://github.com/venmo/Static'
-    
+
 end
 
