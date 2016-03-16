@@ -33,7 +33,7 @@ There are several workout tracking apps in the App store. The closest competitor
 Tri uses a UITabBarController with 4 tabs.
 
 #### Feed tab
-<img src="http://i.imgur.com/fVsphW5.png" width="48">
+<img src="http://i.imgur.com/fVsphW5.png" width="150">
 
 #### Profile Tab
 ![profile](http://i.imgur.com/xtc7gn2.png)
