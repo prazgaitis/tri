@@ -40,8 +40,11 @@ Tri uses a UITabBarController with 4 tabs.
 
 #### Track Workout Tab
 <img src="http://i.imgur.com/F8Ztwbm.png" width="200">
+<img src="http://i.imgur.com/U5nVUQK.png" width="200">
+<img src="http://i.imgur.com/QsdbPee.png" width="200">
 
 #### Settings
+
 
 
 
