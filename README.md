@@ -24,7 +24,7 @@ There are several workout tracking apps in the App store. The closest competitor
 - view friends' workouts and how you stack up
 - View stats and data about your own workouts
 
-[tri](http://i.imgur.com/Nun9qCU.png)
+![tri](http://i.imgur.com/Nun9qCU.png)
 
 ## Technical Details
 
@@ -33,13 +33,13 @@ There are several workout tracking apps in the App store. The closest competitor
 Tri uses a UITabBarController with 4 tabs.
 
 #### Feed tab
-[feed](http://i.imgur.com/fVsphW5.png)
+![feed](http://i.imgur.com/fVsphW5.png)
 
 #### Profile Tab
-[profile](http://i.imgur.com/xtc7gn2.png)
+![profile](http://i.imgur.com/xtc7gn2.png)
 
 #### Track Workout Tab
-[new workout](http://i.imgur.com/F8Ztwbm.png)
+![new workout](http://i.imgur.com/F8Ztwbm.png)
 
 #### Settings
 
