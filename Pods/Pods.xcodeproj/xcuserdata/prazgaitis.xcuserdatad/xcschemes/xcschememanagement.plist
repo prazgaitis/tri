@@ -4,22 +4,17 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>PNChartSwift.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-TriTrainer.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Realm.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>RealmSwift.xcscheme</key>
+		<key>Static.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -27,22 +22,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>5CF6A51D865F055B170AC7041B45AEAF</key>
+		<key>3C2BEA2ABADA471225D78C1226B04936</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>79FA92281519ADFD631D78C000CE5EB8</key>
+		<key>6FF2742C9AD186F4E8FB6EE29F8EE088</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8B073427FEF440585251C42C39D12DDC</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>96ACFDDD73AAB5C06C6EACDAF9776BA0</key>
+		<key>7C4C6625C13740BBA434361B52495FE3</key>
 		<dict>
 			<key>primary</key>
 			<true/>

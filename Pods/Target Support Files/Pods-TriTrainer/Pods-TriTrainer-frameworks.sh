@@ -84,10 +84,10 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_framework "Pods-TriTrainer/Realm.framework"
-  install_framework "Pods-TriTrainer/RealmSwift.framework"
+  install_framework "Pods-TriTrainer/PNChartSwift.framework"
+  install_framework "Pods-TriTrainer/Static.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_framework "Pods-TriTrainer/Realm.framework"
-  install_framework "Pods-TriTrainer/RealmSwift.framework"
+  install_framework "Pods-TriTrainer/PNChartSwift.framework"
+  install_framework "Pods-TriTrainer/Static.framework"
 fi

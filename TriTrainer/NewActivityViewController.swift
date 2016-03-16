@@ -9,7 +9,6 @@
 import UIKit
 import CoreLocation
 import HealthKit
-import CoreData
 import CloudKit
 
 
@@ -21,6 +20,9 @@ class NewActivityViewController: UIViewController, UIGestureRecognizerDelegate, 
     
     //model
     let model: Model = Model.sharedInstance()
+    
+    //AppDelegate
+    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     //MARK: Properties
     var activity: Activity?
@@ -38,6 +40,7 @@ class NewActivityViewController: UIViewController, UIGestureRecognizerDelegate, 
     @IBOutlet weak var pauseButton: UIButton!
     @IBOutlet weak var resumeButton: UIButton!
     @IBOutlet weak var finishButton: UIButton!
+    @IBOutlet weak var cancelButton: UIButton!
     
     /*
 
@@ -67,11 +70,11 @@ class NewActivityViewController: UIViewController, UIGestureRecognizerDelegate, 
     
     override func viewWillAppear(animated: Bool) {
                 
-        startButton.backgroundColor = UIColor.greenColor()
-        startButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        resumeButton.backgroundColor = UIColor.greenColor()
-        pauseButton.backgroundColor = UIColor.redColor()
-        finishButton.backgroundColor = UIColor.blueColor()
+        startButton.backgroundColor = Colors().mainGreen
+        resumeButton.backgroundColor = Colors().mainGreen
+        pauseButton.backgroundColor = Colors().mainMagenta
+        finishButton.backgroundColor = Colors().mainBlue
+        
         resumeButton.hidden = true
         pauseButton.hidden = true
         finishButton.hidden = true
@@ -178,6 +181,11 @@ class NewActivityViewController: UIViewController, UIGestureRecognizerDelegate, 
     
     @IBAction func startRecording(sender: AnyObject) {
         
+        //set currently tracking workout to TRUE
+        print("\n\nSetting currentlyTrackingWorkout = TRUE\n\n")
+        self.appDelegate.currentlyTrackingWorkout = true
+        
+        
         //start with a fresh data
         seconds = 0.0
         distance = 0.0
@@ -235,6 +243,26 @@ class NewActivityViewController: UIViewController, UIGestureRecognizerDelegate, 
         seconds = 0.0
         distance = 0.0
         locations.removeAll(keepCapacity: false)
+    }
+    
+    @IBAction func cancelActivity(sender: AnyObject) {
+        
+        //throw alert if no value was entered
+        let alert = UIAlertController(title: "You sure?", message: "This workout will not be saved.", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Resume", style: UIAlertActionStyle.Default, handler: { (action: UIAlertAction!) in
+            alert.dismissViewControllerAnimated(true, completion: nil)
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel Workout", style: UIAlertActionStyle.Cancel, handler: { (action: UIAlertAction!) in
+            alert.dismissViewControllerAnimated(true, completion: nil)
+            
+            //cancel current workout
+            print("\n\nSetting currentlyTrackingWorkout = FALSE\n\n")
+            self.appDelegate.currentlyTrackingWorkout = false
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }))
+        
+        self.presentViewController(alert, animated: true, completion: nil)
+        
     }
     
     func saveActivity() {
@@ -306,6 +334,10 @@ class NewActivityViewController: UIViewController, UIGestureRecognizerDelegate, 
                 //set flag to show we have new data to pass to the view
                 NewActivityViewController.dirty = true
                 print("Saved to cloudkit successfully!")
+                
+                //cancel current workout
+                print("\n\nSetting currentlyTrackingWorkout = FALSE\n\n")
+                self.appDelegate.currentlyTrackingWorkout = false
                 
                 dispatch_async(dispatch_get_main_queue(),{
                     self.performSegueWithIdentifier("postGPSActivity", sender: self)

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1100CFE31C8E999C002C2238 /* ActivityPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1100CFE21C8E999C002C2238 /* ActivityPicker.swift */; };
 		1100CFE51C8E9A59002C2238 /* ActivityPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1100CFE41C8E9A59002C2238 /* ActivityPickerVC.swift */; };
 		1100CFE71C8EAD69002C2238 /* NewSwimVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1100CFE61C8EAD69002C2238 /* NewSwimVC.swift */; };
 		112DE0DB1C9138300026D98D /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112DE0DA1C91382F0026D98D /* Colors.swift */; };
@@ -24,21 +23,26 @@
 		116745E31C84BF47005767C0 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116745E21C84BF47005767C0 /* UserInfo.swift */; };
 		116745E51C84E428005767C0 /* ActivityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116745E41C84E428005767C0 /* ActivityCell.swift */; };
 		116745E71C84ED4B005767C0 /* ActivityDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116745E61C84ED4B005767C0 /* ActivityDetailVC.swift */; };
-		11F0DF7C1C81718300FA75F1 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11F0DF7B1C81718300FA75F1 /* MapKit.framework */; };
+		11B4B1A31C965EA400D71D32 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 11B4B1A21C965EA400D71D32 /* Settings.bundle */; };
+		11D870CD1C97DC8A0021F8DA /* PNChartSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11D870CC1C97DC8A0021F8DA /* PNChartSwift.framework */; };
+		11D870CF1C97EDC40021F8DA /* LaunchStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11D870CE1C97EDC40021F8DA /* LaunchStoryboard.storyboard */; };
+		11D870D11C9844CB0021F8DA /* LaunchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D870D01C9844CB0021F8DA /* LaunchVC.swift */; };
+		11D870D31C98E21E0021F8DA /* SettingsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D870D21C98E21E0021F8DA /* SettingsTVC.swift */; };
+		11DF751B1C9329440026488E /* SwimDataEntryTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11DF751A1C9329440026488E /* SwimDataEntryTVC.swift */; };
+		11E2BE771C932EC7007BC4CD /* ActivityPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E2BE761C932EC7007BC4CD /* ActivityPicker.swift */; };
+		11F0DF7C1C81718300FA75F1 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11F0DF7B1C81718300FA75F1 /* MapKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		11F0DF7E1C8171A300FA75F1 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11F0DF7D1C8171A300FA75F1 /* HealthKit.framework */; };
 		11F0DF811C82914900FA75F1 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F0DF801C82914900FA75F1 /* Activity.swift */; };
 		11F0DF841C8296EF00FA75F1 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F0DF831C8296EF00FA75F1 /* Location.swift */; };
-		11F0DF891C83B3E900FA75F1 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F0DF881C83B3E900FA75F1 /* TabBarViewController.swift */; };
-		F1E846DF76CD86E4274224B1 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B9F783C9AB5DB966F41C03C /* Pods.framework */; };
+		6F4F37BBFAC7BF352E53BC20 /* Pods_TriTrainer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8894371DA2079F31CE8DF0F1 /* Pods_TriTrainer.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1100CFE21C8E999C002C2238 /* ActivityPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityPicker.swift; sourceTree = "<group>"; };
 		1100CFE41C8E9A59002C2238 /* ActivityPickerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityPickerVC.swift; sourceTree = "<group>"; };
 		1100CFE61C8EAD69002C2238 /* NewSwimVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewSwimVC.swift; sourceTree = "<group>"; };
 		112DE0DA1C91382F0026D98D /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		113FFB261C886A820085641C /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
-		1149A0BF1C7BF78300E77418 /* TriTrainer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TriTrainer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1149A0BF1C7BF78300E77418 /* Tri.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tri.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1149A0C21C7BF78300E77418 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1149A0C61C7BF78300E77418 /* NewActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewActivityViewController.swift; sourceTree = "<group>"; };
 		1149A0C91C7BF78300E77418 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -52,16 +56,23 @@
 		116745E21C84BF47005767C0 /* UserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		116745E41C84E428005767C0 /* ActivityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityCell.swift; sourceTree = "<group>"; };
 		116745E61C84ED4B005767C0 /* ActivityDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityDetailVC.swift; sourceTree = "<group>"; };
+		11B4B1A21C965EA400D71D32 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		11D870CC1C97DC8A0021F8DA /* PNChartSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PNChartSwift.framework; path = "Pods/../build/Release-iphoneos/PNChartSwift.framework"; sourceTree = "<group>"; };
+		11D870CE1C97EDC40021F8DA /* LaunchStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchStoryboard.storyboard; sourceTree = "<group>"; };
+		11D870D01C9844CB0021F8DA /* LaunchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchVC.swift; sourceTree = "<group>"; };
+		11D870D21C98E21E0021F8DA /* SettingsTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTVC.swift; sourceTree = "<group>"; };
+		11DF751A1C9329440026488E /* SwimDataEntryTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwimDataEntryTVC.swift; sourceTree = "<group>"; };
+		11E2BE761C932EC7007BC4CD /* ActivityPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ActivityPicker.swift; path = ../ActivityPicker.swift; sourceTree = "<group>"; };
 		11F0DF7B1C81718300FA75F1 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		11F0DF7D1C8171A300FA75F1 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		11F0DF7F1C8171A300FA75F1 /* TriTrainer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = TriTrainer.entitlements; sourceTree = "<group>"; };
 		11F0DF801C82914900FA75F1 /* Activity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Activity.swift; path = Model/Activity.swift; sourceTree = "<group>"; };
 		11F0DF831C8296EF00FA75F1 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		11F0DF871C838CE300FA75F1 /* timing.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = timing.playground; path = ../timing.playground; sourceTree = "<group>"; };
-		11F0DF881C83B3E900FA75F1 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		33040C75D04B729CFECE957C /* Pods-TriTrainer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TriTrainer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TriTrainer/Pods-TriTrainer.debug.xcconfig"; sourceTree = "<group>"; };
+		8894371DA2079F31CE8DF0F1 /* Pods_TriTrainer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TriTrainer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B9F783C9AB5DB966F41C03C /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F745F55098F5CA39A319EAD5 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		F8D299BA7D1C6AC577F02F54 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		C9338687B461582B02A2BF64 /* Pods-TriTrainer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TriTrainer.release.xcconfig"; path = "Pods/Target Support Files/Pods-TriTrainer/Pods-TriTrainer.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,10 +80,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11D870CD1C97DC8A0021F8DA /* PNChartSwift.framework in Frameworks */,
 				11F0DF7C1C81718300FA75F1 /* MapKit.framework in Frameworks */,
 				116745B81C849C1E005767C0 /* CloudKit.framework in Frameworks */,
 				11F0DF7E1C8171A300FA75F1 /* HealthKit.framework in Frameworks */,
-				F1E846DF76CD86E4274224B1 /* Pods.framework in Frameworks */,
+				6F4F37BBFAC7BF352E53BC20 /* Pods_TriTrainer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,19 +94,20 @@
 		1149A0B61C7BF78300E77418 = {
 			isa = PBXGroup;
 			children = (
+				11B4B1A21C965EA400D71D32 /* Settings.bundle */,
 				11F0DF7D1C8171A300FA75F1 /* HealthKit.framework */,
 				11F0DF7B1C81718300FA75F1 /* MapKit.framework */,
 				1149A0C11C7BF78300E77418 /* TriTrainer */,
 				1149A0C01C7BF78300E77418 /* Products */,
-				C46F8A886976770B0983EAE0 /* Pods */,
 				DE54572DE8B172C5CF7DF078 /* Frameworks */,
+				20568715AF5955160417611C /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
 		1149A0C01C7BF78300E77418 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1149A0BF1C7BF78300E77418 /* TriTrainer.app */,
+				1149A0BF1C7BF78300E77418 /* Tri.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -106,16 +119,18 @@
 				112DE0DA1C91382F0026D98D /* Colors.swift */,
 				11F0DF821C8296D600FA75F1 /* Model */,
 				116745E01C84BEEA005767C0 /* FeedTableViewController.swift */,
-				1100CFE21C8E999C002C2238 /* ActivityPicker.swift */,
 				116745E61C84ED4B005767C0 /* ActivityDetailVC.swift */,
 				1100CFE61C8EAD69002C2238 /* NewSwimVC.swift */,
+				11DF751A1C9329440026488E /* SwimDataEntryTVC.swift */,
 				113FFB261C886A820085641C /* ProfileVC.swift */,
 				116745E41C84E428005767C0 /* ActivityCell.swift */,
 				1149A0C61C7BF78300E77418 /* NewActivityViewController.swift */,
-				1100CFE41C8E9A59002C2238 /* ActivityPickerVC.swift */,
-				11F0DF881C83B3E900FA75F1 /* TabBarViewController.swift */,
+				11D870D21C98E21E0021F8DA /* SettingsTVC.swift */,
+				11D870D01C9844CB0021F8DA /* LaunchVC.swift */,
+				11E2BE781C932F47007BC4CD /* ActivityPicker */,
 				1149A0C81C7BF78300E77418 /* Main.storyboard */,
 				1149A0CD1C7BF78300E77418 /* LaunchScreen.storyboard */,
+				11D870CE1C97EDC40021F8DA /* LaunchStoryboard.storyboard */,
 				11F0DF7F1C8171A300FA75F1 /* TriTrainer.entitlements */,
 				116745B41C83FA0B005767C0 /* TriTrainer.xcdatamodeld */,
 				1149A0CB1C7BF78300E77418 /* Assets.xcassets */,
@@ -123,6 +138,15 @@
 				11F0DF871C838CE300FA75F1 /* timing.playground */,
 			);
 			path = TriTrainer;
+			sourceTree = "<group>";
+		};
+		11E2BE781C932F47007BC4CD /* ActivityPicker */ = {
+			isa = PBXGroup;
+			children = (
+				1100CFE41C8E9A59002C2238 /* ActivityPickerVC.swift */,
+				11E2BE761C932EC7007BC4CD /* ActivityPicker.swift */,
+			);
+			name = ActivityPicker;
 			sourceTree = "<group>";
 		};
 		11F0DF821C8296D600FA75F1 /* Model */ = {
@@ -136,11 +160,11 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
-		C46F8A886976770B0983EAE0 /* Pods */ = {
+		20568715AF5955160417611C /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				F745F55098F5CA39A319EAD5 /* Pods.debug.xcconfig */,
-				F8D299BA7D1C6AC577F02F54 /* Pods.release.xcconfig */,
+				33040C75D04B729CFECE957C /* Pods-TriTrainer.debug.xcconfig */,
+				C9338687B461582B02A2BF64 /* Pods-TriTrainer.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -148,8 +172,10 @@
 		DE54572DE8B172C5CF7DF078 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				11D870CC1C97DC8A0021F8DA /* PNChartSwift.framework */,
 				116745B71C849C1E005767C0 /* CloudKit.framework */,
 				8B9F783C9AB5DB966F41C03C /* Pods.framework */,
+				8894371DA2079F31CE8DF0F1 /* Pods_TriTrainer.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -161,12 +187,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1149A0D31C7BF78300E77418 /* Build configuration list for PBXNativeTarget "TriTrainer" */;
 			buildPhases = (
-				FF3F7461277344F91CCED88E /* Check Pods Manifest.lock */,
+				75BFBC867780880CD4EECDD8 /* Check Pods Manifest.lock */,
 				1149A0BB1C7BF78300E77418 /* Sources */,
 				1149A0BC1C7BF78300E77418 /* Frameworks */,
 				1149A0BD1C7BF78300E77418 /* Resources */,
-				11C883EE5ED87C482BAE524D /* Embed Pods Frameworks */,
-				24109D5BEEB1E5B15112CED6 /* Copy Pods Resources */,
+				AE91D411EB8A38297C3E6752 /* Embed Pods Frameworks */,
+				3389B78AC6276F4605ACDDCD /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -174,7 +200,7 @@
 			);
 			name = TriTrainer;
 			productName = TriTrainer;
-			productReference = 1149A0BF1C7BF78300E77418 /* TriTrainer.app */;
+			productReference = 1149A0BF1C7BF78300E77418 /* Tri.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -233,6 +259,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11B4B1A31C965EA400D71D32 /* Settings.bundle in Resources */,
+				11D870CF1C97EDC40021F8DA /* LaunchStoryboard.storyboard in Resources */,
 				1149A0CF1C7BF78300E77418 /* LaunchScreen.storyboard in Resources */,
 				1149A0CC1C7BF78300E77418 /* Assets.xcassets in Resources */,
 				1149A0CA1C7BF78300E77418 /* Main.storyboard in Resources */,
@@ -242,22 +270,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		11C883EE5ED87C482BAE524D /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		24109D5BEEB1E5B15112CED6 /* Copy Pods Resources */ = {
+		3389B78AC6276F4605ACDDCD /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -269,10 +282,10 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TriTrainer/Pods-TriTrainer-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		FF3F7461277344F91CCED88E /* Check Pods Manifest.lock */ = {
+		75BFBC867780880CD4EECDD8 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -287,6 +300,21 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		AE91D411EB8A38297C3E6752 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TriTrainer/Pods-TriTrainer-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -298,18 +326,20 @@
 				116745E51C84E428005767C0 /* ActivityCell.swift in Sources */,
 				116745DB1C84A524005767C0 /* Model.swift in Sources */,
 				1149A0C71C7BF78300E77418 /* NewActivityViewController.swift in Sources */,
-				1100CFE31C8E999C002C2238 /* ActivityPicker.swift in Sources */,
+				11D870D11C9844CB0021F8DA /* LaunchVC.swift in Sources */,
 				116745E11C84BEEA005767C0 /* FeedTableViewController.swift in Sources */,
 				1100CFE51C8E9A59002C2238 /* ActivityPickerVC.swift in Sources */,
 				116745E31C84BF47005767C0 /* UserInfo.swift in Sources */,
+				11DF751B1C9329440026488E /* SwimDataEntryTVC.swift in Sources */,
 				1149A0C31C7BF78300E77418 /* AppDelegate.swift in Sources */,
+				11E2BE771C932EC7007BC4CD /* ActivityPicker.swift in Sources */,
 				112DE0DB1C9138300026D98D /* Colors.swift in Sources */,
 				116745B61C83FA0C005767C0 /* TriTrainer.xcdatamodeld in Sources */,
 				11F0DF841C8296EF00FA75F1 /* Location.swift in Sources */,
-				11F0DF891C83B3E900FA75F1 /* TabBarViewController.swift in Sources */,
 				1100CFE71C8EAD69002C2238 /* NewSwimVC.swift in Sources */,
 				116745E71C84ED4B005767C0 /* ActivityDetailVC.swift in Sources */,
 				11F0DF811C82914900FA75F1 /* Activity.swift in Sources */,
+				11D870D31C98E21E0021F8DA /* SettingsTVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,7 +382,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Paul Razgaitis (RZZGN6MBXL)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -396,7 +426,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Paul Razgaitis (RZZGN6MBXL)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -418,32 +448,40 @@
 		};
 		1149A0D41C7BF78300E77418 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F745F55098F5CA39A319EAD5 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 33040C75D04B729CFECE957C /* Pods-TriTrainer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = TriTrainer/TriTrainer.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Release-iphoneos",
+				);
 				INFOPLIST_FILE = TriTrainer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.paulrazgaitis.TriTrainer;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Tri;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
 		1149A0D51C7BF78300E77418 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F8D299BA7D1C6AC577F02F54 /* Pods.release.xcconfig */;
+			baseConfigurationReference = C9338687B461582B02A2BF64 /* Pods-TriTrainer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = TriTrainer/TriTrainer.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Release-iphoneos",
+				);
 				INFOPLIST_FILE = TriTrainer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.paulrazgaitis.TriTrainer;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Tri;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Release;

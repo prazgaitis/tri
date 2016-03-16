@@ -7,18 +7,28 @@
 //
 
 import UIKit
-import CoreData
 import CoreLocation
 import CloudKit
-import Contacts
 
 class FeedTableViewController: UITableViewController, ModelDelegate {
-
+    
+    //TODO: SEPARATORS DISAPPEARING AFTER CELL IS SELECTED
     
     let model: Model = Model.sharedInstance()
     let color: Colors = Colors()
     var activities = [Activity]()
     var contacts = [CNContact]()
+    
+    // totals
+    var totalRunDistance: Double = 0.0
+    var totalSwimDistance: Double = 0.0
+    var totalBikeDistance: Double = 0.0
+    
+    //activities by current week
+    var allActivitiesThisWeek = [Activity]()
+    var allRunsThisWeek = [Activity]()
+    var allRidesThisWeek = [Activity]()
+    var allSwimsThisWeek = [Activity]()
     
     @IBOutlet weak var feedSelector: UISegmentedControl!
     
@@ -74,7 +84,7 @@ class FeedTableViewController: UITableViewController, ModelDelegate {
         AppDelegate.getAppDelegate().requestForAccess { (accessGranted) -> Void in
             if accessGranted {
                 // let keys = [CNContactGivenNameKey, CNContactFamilyNameKey, CNContactEmailAddressesKey, CNContactBirthdayKey, CNContactImageDataKey]
-                let keys = [CNContactFormatter.descriptorForRequiredKeysForStyle(CNContactFormatterStyle.FullName), CNContactEmailAddressesKey, CNContactBirthdayKey, CNContactImageDataKey]
+                _ = [CNContactFormatter.descriptorForRequiredKeysForStyle(CNContactFormatterStyle.FullName), CNContactEmailAddressesKey, CNContactBirthdayKey, CNContactImageDataKey]
                 
                 do {
                     
@@ -82,12 +92,8 @@ class FeedTableViewController: UITableViewController, ModelDelegate {
                         print("got contacts")
                     })
                 }
-                catch {
-                    print("Unable to refetch the contact")
-                }
             }
         }
-
     }
 
 
@@ -103,11 +109,9 @@ class FeedTableViewController: UITableViewController, ModelDelegate {
             //show only my activities
             model.showOnlyMyActivities()
             
-        } else if feedSelector.selectedSegmentIndex == 1 {
+        } else {
             //show all activities
             model.refresh()
-        } else {
-            print("This should not happen")
         }
     }
 
@@ -119,25 +123,53 @@ class FeedTableViewController: UITableViewController, ModelDelegate {
     // MARK: ModelDelegate Protocol Methods
     
     func refreshTable() {
-        model.refresh()
+        
+        if (feedSelector.selectedSegmentIndex == 0) {
+            //show only my activities
+            model.showOnlyMyActivities()
+            
+        } else {
+            //show all activities
+            model.refresh()
+        }
+        
         self.tableView.reloadData()
         self.refreshControl?.endRefreshing()
     }
     
     func errorUpdating(error: NSError) {
-        print(error)
+        print("Error updateing: \(error)")
+        
+        //throw alert if network is unreachable
+        let alert = UIAlertController(title: "Error", message: "Unable to communicate with server", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
     }
     
     func modelUpdated() {
         print("updated!")
-        activities = model.items
         
-        if model.items.count > 0 {
-            for activity in model.items {
-                print("\(activity.activityType) -- \(activity.timestamp) -- \(activity.creatorName)")
+        if (feedSelector.selectedSegmentIndex == 0) {
+            activities = model.myActivities
+        } else {
+            activities = model.allActivities
+        }
+        
+        print("\n\nActivities (\(activities.count))")
+        print("---------------------\n")
+        
+        if activities.count > 0 {
+            for (index, activity) in activities.enumerate() {
+                
+                //for print styling purposes
+                if activity.activityType == "run" {
+                    print("- \(activity.activityType)  -- \(activity.timestamp) -- \(activity.creatorName)")
+                } else {
+                    print("- \(activity.activityType) -- \(activity.timestamp) -- \(activity.creatorName)")
+                }
             }
         } else {
-            print("zero items, yo!")
+            print("There were no activities returned")
         }
         self.tableView.reloadData()
 
@@ -146,12 +178,10 @@ class FeedTableViewController: UITableViewController, ModelDelegate {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return activities.count
     }
     
@@ -161,22 +191,20 @@ class FeedTableViewController: UITableViewController, ModelDelegate {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let selectedCell: ActivityCell = tableView.cellForRowAtIndexPath(indexPath) as! ActivityCell
-        selectedCell.backgroundColor = color.mainDarkGray
+        selectedCell.selectionStyle = .None
         selectedCell.nameLabel.textColor = color.mainGreen
         print("didSelect Cell")
     }
     
     override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
         let selectedCell: ActivityCell = tableView.cellForRowAtIndexPath(indexPath) as! ActivityCell
-        selectedCell.backgroundColor = color.mainDarkGray
-        selectedCell.nameLabel.textColor = color.mainGreen
+        selectedCell.nameLabel.textColor = UIColor.lightTextColor()
         print("did-DE-Select Cell")
     }
     
     override func tableView(tableView: UITableView, didHighlightRowAtIndexPath indexPath: NSIndexPath) {
         let selectedCell: ActivityCell = tableView.cellForRowAtIndexPath(indexPath) as! ActivityCell
         selectedCell.selectionStyle = .None
-        selectedCell.contentView.backgroundColor = color.mainDarkGray
         selectedCell.nameLabel.textColor = color.mainGreen
         print("didHighlight Cell")
     }
@@ -187,13 +215,30 @@ class FeedTableViewController: UITableViewController, ModelDelegate {
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! ActivityCell
         let activity = activities[indexPath.row]
         
+        //calculate date
         let formatter = NSDateFormatter()
         formatter.dateFormat = "yyyy-MM-dd hh:mm:ss.SSSSxxx"
         formatter.dateStyle = .MediumStyle
-        formatter.timeStyle = .ShortStyle
+        formatter.timeStyle = .NoStyle
+        
+        //calculate pace - different if swimming or run/bike
+        
+        var paceString = ""
+        
+        if activity.activityType == "swim" {
+            //meters per minute
+            let metersPerMin = activity.distance / (activity.duration / 60)
+            paceString = String(format: "%2.f m/min", metersPerMin)
+            
+        } else {
+            let metersInMile = 1609.34
+            let minutesPerMile = (activity.duration/60.0) / (activity.distance/metersInMile)
+            let mins = minutesPerMile
+            let secs = (minutesPerMile % 1) * 60.0
+            paceString = String(format: "%2.f:%02.f /mi", mins, secs)
+        }
         
         let dateString = formatter.stringFromDate(activity.timestamp)
-        
         let creatorName = activity.creatorName
 
         // Configure the cell...
@@ -207,7 +252,9 @@ class FeedTableViewController: UITableViewController, ModelDelegate {
             cell.distance.text = String("\(distanceString) mi")
         }
         
+        cell.paceLabel.text = paceString
         cell.distance.textColor = color.mainGreen
+        cell.paceLabel.textColor = color.mainGreen
         cell.dateLabel.text = dateString.uppercaseString
         cell.nameLabel.text = creatorName
         cell.nameLabel.textColor = UIColor.lightTextColor()

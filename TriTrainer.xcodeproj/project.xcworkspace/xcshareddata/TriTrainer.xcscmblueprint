@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "7080837B631CB6CD8ED61D231B4584DC281EDD5F",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "E4D23DEA7C15C93DD53620992DDDD880CBD9CA60" : 0,
+    "7080837B631CB6CD8ED61D231B4584DC281EDD5F" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "DDE36737-2290-4C3B-AB9C-87203EA576BE",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "E4D23DEA7C15C93DD53620992DDDD880CBD9CA60" : "..",
+    "7080837B631CB6CD8ED61D231B4584DC281EDD5F" : "TriTrainer\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "TriTrainer",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "TriTrainer.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/uchicago-mobi\/mpcs51030-2016-winter-project-prazgaitis.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "7080837B631CB6CD8ED61D231B4584DC281EDD5F"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/uchicago-mobi\/mpcs51030-2016-winter-assignment-2-prazgaitis.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "E4D23DEA7C15C93DD53620992DDDD880CBD9CA60"
+    }
+  ]
+}

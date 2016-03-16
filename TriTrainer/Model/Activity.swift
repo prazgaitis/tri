@@ -36,7 +36,7 @@ class Activity: NSObject {
     
     convenience override init() {
         let locat = [CLLocation]()
-        self.init(duration: 10.0, distance: 10.0, timestamp: NSDate(), locations: locat, activityType: "run", creatorName: "Joe Shmoe", creatorID: "insertRandomStringHere")
+        self.init(duration: 0.0, distance: 0.0, timestamp: NSDate(), locations: locat, activityType: "run", creatorName: "Joe Shmoe", creatorID: "insertRandomStringHere")
     }
     
     //--- cloudkit stuff

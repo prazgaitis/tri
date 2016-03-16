@@ -1,15 +1,27 @@
 PODS:
-  - Realm (0.98.3):
-    - Realm/Headers (= 0.98.3)
-  - Realm/Headers (0.98.3)
-  - RealmSwift (0.98.3):
-    - Realm (= 0.98.3)
+  - PNChartSwift (0.0.2)
+  - Static (1.0.0)
 
 DEPENDENCIES:
-  - RealmSwift
+  - PNChartSwift (from `https://github.com/kevinzhow/PNChart-Swift.git`)
+  - Static (from `https://github.com/venmo/Static`)
+
+EXTERNAL SOURCES:
+  PNChartSwift:
+    :git: https://github.com/kevinzhow/PNChart-Swift.git
+  Static:
+    :git: https://github.com/venmo/Static
+
+CHECKOUT OPTIONS:
+  PNChartSwift:
+    :commit: 88eb8bcb4cd415d02775b2d355542b8bd338712d
+    :git: https://github.com/kevinzhow/PNChart-Swift.git
+  Static:
+    :commit: 1bcfa7737189327a0e6159bec1d4e182e54624ba
+    :git: https://github.com/venmo/Static
 
 SPEC CHECKSUMS:
-  Realm: c6a7d00221a2d5177810a674aebd40c5e0b70b0f
-  RealmSwift: d6ecad6e4c2a645d6ac956c2c7e9efb375f39c31
+  PNChartSwift: bcdfbffd65920072463eff42d0dfb46189bf4495
+  Static: 8b4021cf969d40da1ad03562e5a2a7470dc94c65
 
 COCOAPODS: 0.39.0

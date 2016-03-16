@@ -15,18 +15,35 @@ class ActivityDetailVC: UIViewController {
     
     var activity: Activity!
     
+    @IBOutlet weak var navigationBar: UINavigationItem!
     @IBOutlet weak var activityType: UILabel!
     @IBOutlet weak var timestamp: UILabel!
     @IBOutlet weak var paceLabel: UILabel!
     @IBOutlet weak var duration: UILabel!
     @IBOutlet weak var distance: UILabel!
     @IBOutlet weak var mapview: MKMapView!
+    @IBOutlet weak var swimIcon: UIImageView!
+    
+    override func viewWillAppear(animated: Bool) {
+        if activity.activityType == "swim" {
+            distance.center = swimIcon.center
+            distance.center.y = swimIcon.center.y + 100
+        } else {
+            swimIcon.hidden = true
+        }
+    }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = UIColor.blackColor()
+        
         //placeLabels()
+        
+        print("Activity Type: \(activity?.activityType)")
+
+        navigationBar.title = activity?.activityType.uppercaseString
         
         print("Locations: \(activity.locations?.count)")
         
@@ -46,8 +63,8 @@ class ActivityDetailVC: UIViewController {
         
         let formatter = NSDateFormatter()
         formatter.dateFormat = "yyyy-MM-dd hh:mm:ss.SSSSxxx"
-        formatter.dateStyle = .MediumStyle
-        formatter.timeStyle = .MediumStyle
+        formatter.dateStyle = .ShortStyle
+        formatter.timeStyle = .ShortStyle
         
         let dateString = formatter.stringFromDate(activity!.timestamp)
         
@@ -88,7 +105,7 @@ class ActivityDetailVC: UIViewController {
         // end duration -------------
         
         // labels
-        activityType.text = activity!.activityType
+        activityType.text = "\(activity!.activityType) by \(activity.creatorName)"
         distance.text = String("\(distanceString) mi")
         timestamp.text = dateString
         duration.text = durationString
@@ -160,7 +177,7 @@ class ActivityDetailVC: UIViewController {
         
         let polyline = overlay as? MKPolyline
         let renderer = MKPolylineRenderer(polyline: polyline!)
-        renderer.strokeColor = UIColor.redColor()
+        renderer.strokeColor = Colors().mainGreen
         renderer.lineWidth = 3
         
         return renderer

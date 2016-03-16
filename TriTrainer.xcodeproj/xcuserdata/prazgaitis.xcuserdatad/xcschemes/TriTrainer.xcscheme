@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "1149A0BE1C7BF78300E77418"
-               BuildableName = "TriTrainer.app"
+               BuildableName = "Tri.app"
                BlueprintName = "TriTrainer"
                ReferencedContainer = "container:TriTrainer.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1149A0BE1C7BF78300E77418"
-            BuildableName = "TriTrainer.app"
+            BuildableName = "Tri.app"
             BlueprintName = "TriTrainer"
             ReferencedContainer = "container:TriTrainer.xcodeproj">
          </BuildableReference>
@@ -56,7 +56,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1149A0BE1C7BF78300E77418"
-            BuildableName = "TriTrainer.app"
+            BuildableName = "Tri.app"
             BlueprintName = "TriTrainer"
             ReferencedContainer = "container:TriTrainer.xcodeproj">
          </BuildableReference>
@@ -75,7 +75,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1149A0BE1C7BF78300E77418"
-            BuildableName = "TriTrainer.app"
+            BuildableName = "Tri.app"
             BlueprintName = "TriTrainer"
             ReferencedContainer = "container:TriTrainer.xcodeproj">
          </BuildableReference>

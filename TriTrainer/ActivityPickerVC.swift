@@ -26,10 +26,15 @@ class ActivityPickerVC: UIViewController {
     }
     
     override func viewWillDisappear(animated: Bool) {
+        fadeToBlack()
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
         
         //if no option was selected, clear the picker from the view 
-        if (self.view?.viewWithTag(100) != nil ) {
-            self.view?.viewWithTag(100)?.removeFromSuperview()
+        if (self.view?.viewWithTag(99) != nil ) {
+            //self.view?.viewWithTag(99)?.removeFromSuperview()
+            print("removing black background view")
         }
     }
 
@@ -46,57 +51,59 @@ class ActivityPickerVC: UIViewController {
         //center of superview
         let c = CGFloat((self.view.center.x))
         
-        let defaultButtonColor = UIColor.lightGrayColor()
+        let defaultButtonColor = Colors().mainDarkGray
         
         let backgroundView = UIView()
         backgroundView.frame = self.view.frame
         backgroundView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
-        backgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "dismissVC"))
+        backgroundView.tag = 99
         
         let activityPicker = ActivityPicker(frame: CGRectMake(0, 0, 300.0, 300.0))
         activityPicker.center = CGPointMake(c, -600)
         activityPicker.tag = 100
-        //activityPicker.layer.borderWidth = 1
-        //activityPicker.layer.borderColor = UIColor.darkGrayColor().CGColor
+        activityPicker.layer.borderWidth = 2
+        activityPicker.layer.borderColor = Colors().mainGreen.CGColor
         
         let titleBar = UIButton()
         titleBar.setTitle("Select a Workout", forState: .Normal)
-        titleBar.backgroundColor = UIColor.whiteColor()
-        titleBar.frame = CGRectMake(0.0, 0.0, 300.0, 30.0)
-        titleBar.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        titleBar.backgroundColor = UIColor.blackColor()
+        titleBar.frame = CGRectMake(0.0, 0.0, 300.0, 60.0)
+        titleBar.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         titleBar.userInteractionEnabled = false
+        titleBar.layer.borderColor = Colors().mainGreen.CGColor
         
         
         let runButton = UIButton()
         runButton.setTitle("RUN", forState: .Normal)
         runButton.backgroundColor = defaultButtonColor
-        runButton.frame = CGRectMake(0.0, 30.0, 300.0, 90.0)
+        runButton.frame = CGRectMake(0.0, 60.0, 300.0, 80.0)
         runButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         runButton.userInteractionEnabled = true
         runButton.tag = 200
-        runButton.addTarget(self, action: "pickActivity:", forControlEvents: .TouchDown)
+        runButton.addTarget(self, action: "pickActivity:", forControlEvents: .TouchUpInside)
         runButton.addTarget(self, action: "dismissActivityPicker:", forControlEvents: .TouchUpInside)
         
         let bikeButton = UIButton()
         bikeButton.setTitle("BIKE", forState: .Normal)
         bikeButton.backgroundColor = defaultButtonColor
-        bikeButton.frame = CGRectMake(0.0, 120.0, 300.0, 90.0)
+        bikeButton.frame = CGRectMake(0.0, 140.0, 300.0, 80.0)
         bikeButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         bikeButton.userInteractionEnabled = true
         bikeButton.tag = 201
-        bikeButton.addTarget(self, action: "pickActivity:", forControlEvents: .TouchDown)
-        bikeButton.addTarget(self, action: "dismissActivityPicker:", forControlEvents: .TouchUpInside)
+        bikeButton.addTarget(self, action: "pickActivity:", forControlEvents: .TouchUpInside)
+        bikeButton.addTarget(self, action: "changeBackgroundColor:", forControlEvents: .TouchDown)
         
         let swimButton = UIButton()
         swimButton.setTitle("SWIM", forState: .Normal)
         swimButton.backgroundColor = defaultButtonColor
-        swimButton.frame = CGRectMake(0.0, 210.0, 300.0, 90.0)
+        swimButton.frame = CGRectMake(0.0, 220.0, 300.0, 80.0)
         swimButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         swimButton.userInteractionEnabled = true
         swimButton.tag = 202
-        swimButton.addTarget(self, action: "pickActivity:", forControlEvents: .TouchDown)
-        swimButton.addTarget(self, action: "dismissActivityPicker:", forControlEvents: .TouchUpInside)
-
+        swimButton.addTarget(self, action: "pickActivity:", forControlEvents: .TouchUpInside)
+        swimButton.addTarget(self, action: "changeBackgroundColor:", forControlEvents: .TouchDown)
+        
+        
         
         activityPicker.backgroundColor = UIColor.grayColor()
         self.view.addSubview(backgroundView)
@@ -108,13 +115,36 @@ class ActivityPickerVC: UIViewController {
 
         //add subviews
         activityPicker.enter()
-    
         
     }
     
+    func changeBackgroundColor(sender: UIButton!) {
+        sender.backgroundColor = Colors().mainGreen
+    }
+    
+    func fadeToBlack() {
+        UIView.animateWithDuration(0.2,
+            delay: 2.0,
+            options: .CurveEaseOut,
+            animations: { () -> Void in
+                self.view?.viewWithTag(99)?.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(1.0)
+                print("animating fadeToBlack() in ActivityPickerVC.swift (line 131)")
+            })
+            { (finished) -> Void in
+                self.view?.viewWithTag(99)?.removeFromSuperview()
+                print("removed ActivityPicker View")
+        }
+
+    }
     
     func pickActivity(sender: UIButton!) {
-        sender.backgroundColor = UIColor.blackColor()
+        
+        //fadeToBlack()
+        self.view?.viewWithTag(99)?.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(1.0)
+        
+        let sv = sender.superview as? ActivityPicker
+        sv?.exit()
+        
         switch sender.tag {
         case 200:
             print("run")
@@ -124,21 +154,18 @@ class ActivityPickerVC: UIViewController {
             performSegueWithIdentifier("newGPSActivity", sender: sender)
         case 202:
             print("swim")
-            //let vc = NewSwimVC()
-            //self.presentViewController(vc, animated: true, completion: nil)
             performSegueWithIdentifier("newSwim", sender: nil)
-            //redirect to swim thing
         default:
             return
         }
         
-        //sender.backgroundColor = UIColor.redColor()
+        sender.backgroundColor = Colors().mainGreen
 
     }
     
     func dismissActivityPicker(sender: UIButton!) {
-        let sv = sender.superview as? ActivityPicker
-        sv?.exit()
+//        let sv = sender.superview as? ActivityPicker
+//        sv?.exit()
     }
     
     func dismissVC(){
@@ -163,11 +190,7 @@ class ActivityPickerVC: UIViewController {
                     dvc.activityType = "bike"
                     print("chose bike")
                 }
-                
-                //self.presentViewController(dvc, animated: true, completion: nil)
-                
             }
         }
     }
-
 }
