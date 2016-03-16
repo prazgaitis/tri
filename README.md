@@ -35,8 +35,14 @@ Tri uses a UITabBarController with 4 tabs.
 #### Feed tab
 <img src="http://i.imgur.com/fVsphW5.png" width="200">
 
+The Feed tab lists all of a User's workouts. The UISegmentedControl toggles whether the feed is displaying a User's own workouts, or all of the workouts logged by the user AND the user's friends. Each cell contains the user's name, the date of the workout, and the distance of the workout. Tapping on the distance label shows the avg per-mile pace for that workout. Tapping on the cell causes the activity detail page to show up, which shows a Map with all of the workouts and other data.
+
 #### Profile Tab
 <img src="http://i.imgur.com/xtc7gn2.png" width="200">
+
+The profile tab shows the current user's workouts for the current week. The three buttons under the graph allow the user to toggle which activities (run/bike/swim) are displayed in the graph.
+
+This view also shows how many friends of the user are also using Tri. Contact data is pulled from Cloudkit. There is no way to discover or add friends (yet), so the user is automatically "friends" with any of their contacts that also have the Tri app.
 
 #### Track Workout Tab
 <img src="http://i.imgur.com/F8Ztwbm.png" width="200">
