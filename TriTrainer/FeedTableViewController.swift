@@ -30,6 +30,15 @@ class FeedTableViewController: UITableViewController, ModelDelegate {
     var allRidesThisWeek = [Activity]()
     var allSwimsThisWeek = [Activity]()
     
+    //count dates to sort table by date
+    var numberOfDates = 0
+    var arrDates: [String] = []
+    var arrActivities: [[Activity]] = [[]]
+    var dateIndex: Int = 0
+    
+    //dictionary of activities
+    var dateDictionary: [String: [Activity]] = [:]
+    
     @IBOutlet weak var feedSelector: UISegmentedControl!
     
     @IBAction func feedChanged(sender: AnyObject) {
@@ -49,7 +58,8 @@ class FeedTableViewController: UITableViewController, ModelDelegate {
         self.view.backgroundColor = UIColor.blackColor()
         self.feedSelector.tintColor = color.mainGreen
         
-        getTheContacts()
+        //dont think this is necessary. if it is, it should be in the model
+        //getTheContacts()
         
         model.delegate = self
         
@@ -139,15 +149,45 @@ class FeedTableViewController: UITableViewController, ModelDelegate {
     
     func errorUpdating(error: NSError) {
         print("Error updateing: \(error)")
+        let appdelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         
-        //throw alert if network is unreachable
-        let alert = UIAlertController(title: "Error", message: "Unable to communicate with server", preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
+        appdelegate.showMessage("Error: \(error)")
+        
+        
+        /*
+        
+        curl https://docs.google.com/forms/d/1-T-bHj1sjJp6Df1nwYXYyZsKGvR3-OF6XX6k/formResponse
+        -d ifq
+        -d entry.276372852  = test
+        -d entry.1434010333 = test
+        -d entry.2064025692 = test
+        -d submit           = Submit
+        
+        -------
+        
+        curl "https://docs.google.com/forms/d/1-T-bHj1sjJp6Df1nwYXfyZsKGvR3-OF6XX6k/formResponse?ifq&entry.276372852=Hello1&entry.1434010333=Hello2&entry.2064025692=Helo3&submit=Submit"
+        
+        */
+        
+        //user data
+        let userName = model.currentLoggedInUser as String?
+        
+        if let userName = userName {
+            model.postData(userName, field2: "test", field3: "test")
+        } else {
+            model.postData("no username yet", field2: "test", field3: "test")
+        }
+        
+//        //throw alert if network is unreachable
+//        let alert = UIAlertController(title: "Error", message: "Unable to communicate with server", preferredStyle: UIAlertControllerStyle.Alert)
+//        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+//        self.presentViewController(alert, animated: true, completion: nil)
     }
     
+    
     func modelUpdated() {
-        print("updated!")
+        
+        print("model updated! line 150 - FeedTableViewController.swift")
         
         if (feedSelector.selectedSegmentIndex == 0) {
             activities = model.myActivities
@@ -158,6 +198,11 @@ class FeedTableViewController: UITableViewController, ModelDelegate {
         print("\n\nActivities (\(activities.count))")
         print("---------------------\n")
         
+        //clear out arrays for table sorting
+        arrActivities.removeAll(keepCapacity: false)
+        arrDates.removeAll(keepCapacity: false)
+        numberOfDates = 0
+        
         if activities.count > 0 {
             for (index, activity) in activities.enumerate() {
                 
@@ -167,23 +212,121 @@ class FeedTableViewController: UITableViewController, ModelDelegate {
                 } else {
                     print("- \(activity.activityType) -- \(activity.timestamp) -- \(activity.creatorName)")
                 }
+                
+                //get date
+                let formatter = NSDateFormatter()
+                formatter.dateFormat = "yyyy-MM-dd hh:mm:ss.SSSSxxx"
+                formatter.dateStyle = .MediumStyle
+                formatter.timeStyle = .NoStyle
+                
+                let dateString = formatter.stringFromDate(activity.timestamp)
+                
+                //sort by date for the table
+                
+//                //count dates to sort table by date
+//                var numberOfDates = 0
+//                var datesArray: [String] = []
+//                var actByDate: [[Activity]] = [[]]
+//                var dateIndex: Int = 0
+                
+                //store each unique date in datesArray
+                //store all activities in arrActivities matrix
+                
+                /*
+                
+                datesArray: 
+                
+                [ "2016-03-21", "2016-03-22", "2016-03-23", ... ]
+                
+                arrActivities: 
+                [
+                    [ activity, activity, activity ]
+                    [ activity, activity, activity, activity, activity, activity ]
+                    [ activity, activity, activity, activity, activity ]
+                ]
+                
+                data structure:
+                
+                "2016-03-21" => [ activity, activity, activity ]
+                "2016-03-22" => [ activity, activity, activity, activity, activity, activity ]
+                "2016-03-23" => [ activity, activity, activity, activity, activity ]
+                
+
+                */
+                
+                //two arrays - one containing dates, the other an..array of arrays?
+                if arrDates.contains(dateString) {
+                    //get index of date
+                    dateIndex = arrDates.indexOf(dateString)!
+                    arrActivities[dateIndex].append(activity)
+                    print("appended activity to \(arrDates[dateIndex]) => \(arrActivities[dateIndex])")
+                } else {
+                    //else if it's not in the array, append it
+                    arrDates.append(dateString)
+                    dateIndex = arrDates.indexOf(dateString)!
+                    print("FAILS HERE. \(arrDates.indexOf(dateString)!)")
+                    print(arrDates)
+                    let newArr = [activity]
+                    arrActivities.append(newArr)
+                    print("created date \(arrDates[dateIndex]) => \(arrActivities[dateIndex])")
+                    numberOfDates++
+                }
             }
         } else {
             print("There were no activities returned")
         }
         self.tableView.reloadData()
-
+    
+        
+        print("PRINTING DATES: ")
+        
+        for (index, date) in arrDates.enumerate() {
+            print("\(date) -> \(arrActivities[index])")
+        }
     }
-
+    
+    //
     // MARK: - Table view data source
+    //
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        if numberOfDates > 1 {
+            //print("number of dates: \(numberOfDates)")
+            return numberOfDates
+        } else {
+            //print("number of dates: \(numberOfDates)")
+            return 1
+        }
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return activities.count
+        if self.arrActivities.count == 0 {
+            return 0
+        } else {
+            return self.arrActivities[section].count
+        }
     }
+    
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        if arrDates.count == 0 {
+            //print("LOADING!")
+            return "Loading"
+        } else {
+            //print("arrDates.count: \(arrDates.count)")
+            //print("section count: \(section)")
+            return arrDates[section]
+        }
+    }
+    
+    //style the tableview headers
+//    override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+//        let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
+//        header.contentView.backgroundColor = UIColor.blackColor()
+//        header.textLabel?.textColor = UIColor.whiteColor()
+//        header.textLabel?.font = UIFont(name: "Helvetica Neue", size: 17)
+//        header.alpha = 0.5
+//    }
     
     override func tableView(tableView: UITableView, estimatedHeightForFooterInSection section: Int) -> CGFloat {
         return UITableViewAutomaticDimension
@@ -213,7 +356,10 @@ class FeedTableViewController: UITableViewController, ModelDelegate {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cellIdentifier = "activityCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! ActivityCell
-        let activity = activities[indexPath.row]
+        
+        //get items in this section
+        let activitiesOnThisDay = arrActivities[indexPath.section]
+        let activity = activitiesOnThisDay[indexPath.row]
         
         //calculate date
         let formatter = NSDateFormatter()
@@ -244,6 +390,7 @@ class FeedTableViewController: UITableViewController, ModelDelegate {
         // Configure the cell...
         
         cell.backgroundColor = UIColor.blackColor()
+        
         if (activity.activityType == "swim") {
             let distanceString = String(format: "%.1f", activity.distance)
             cell.distance.text = String("\(distanceString) m")
@@ -253,11 +400,17 @@ class FeedTableViewController: UITableViewController, ModelDelegate {
         }
         
         cell.paceLabel.text = paceString
-        cell.distance.textColor = color.mainGreen
-        cell.paceLabel.textColor = color.mainGreen
-        cell.dateLabel.text = dateString.uppercaseString
+        cell.distance.textColor = .blackColor()
+        cell.pill.backgroundColor = .whiteColor()
+        //cell.paceLabel.textColor = color.mainGreen
+
+        //removed dateLabel
+        //cell.dateLabel.text = dateString.uppercaseString
         cell.nameLabel.text = creatorName
         cell.nameLabel.textColor = UIColor.lightTextColor()
+        cell.pill.layer.cornerRadius = 5.0
+        cell.pill.backgroundColor = Colors().mainGreen
+        cell.typeLabel.text = activity.activityType.uppercaseString
         
         return cell
     }
@@ -299,9 +452,11 @@ class FeedTableViewController: UITableViewController, ModelDelegate {
     // MARK: - Navigation
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
         if segue.identifier == "showDetail" {
+
             if let indexPath = self.tableView.indexPathForSelectedRow {
-                let activity = activities[indexPath.row]
+                let activity = arrActivities[indexPath.section][indexPath.row]
                 let controller = segue.destinationViewController as! ActivityDetailVC
                 controller.activity = activity
             }

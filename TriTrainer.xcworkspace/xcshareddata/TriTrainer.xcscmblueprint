@@ -4,11 +4,13 @@
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "E5090E09BDD62CF118DF2D49464BBD16D0B816E6" : 0,
     "E4D23DEA7C15C93DD53620992DDDD880CBD9CA60" : 0,
     "7080837B631CB6CD8ED61D231B4584DC281EDD5F" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "5D1DA11D-DCE2-4923-8992-4E504DCBB0C6",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "E5090E09BDD62CF118DF2D49464BBD16D0B816E6" : "..\/..\/..\/..\/Desktop\/tester\/testproj",
     "E4D23DEA7C15C93DD53620992DDDD880CBD9CA60" : "..",
     "7080837B631CB6CD8ED61D231B4584DC281EDD5F" : "TriTrainer\/"
   },
@@ -25,6 +27,11 @@
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/uchicago-mobi\/mpcs51030-2016-winter-assignment-2-prazgaitis.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "E4D23DEA7C15C93DD53620992DDDD880CBD9CA60"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/prazgaitis\/upgraded-adventure.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "E5090E09BDD62CF118DF2D49464BBD16D0B816E6"
     }
   ]
 }

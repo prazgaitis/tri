@@ -110,7 +110,7 @@ class NewActivityViewController: UIViewController, UIGestureRecognizerDelegate, 
     //MARK: CLLocationManager stuff
     
     func fireEachSecond(timer: NSTimer) {
-        seconds++
+        seconds += 1
         let secondsQuantity = HKQuantity(unit: HKUnit.secondUnit(), doubleValue: seconds)
         
         // --------------
@@ -328,7 +328,9 @@ class NewActivityViewController: UIViewController, UIGestureRecognizerDelegate, 
         //save record
         publicDB.saveRecord(record) { savedRecord, error in
             if error != nil {
+                let e = String(error)
                 print("Error: \(error)")
+                self.model.postData(e, field2: "error saving swim", field3: "na")
             } else {
                 //set flag to show we have new data to pass to the view
                 NewActivityViewController.dirty = true

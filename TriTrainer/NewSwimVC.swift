@@ -84,6 +84,10 @@ class NewSwimVC: UIViewController, SwimDataDelegate {
     var screenHeight: CGFloat?
     
     let model = Model.sharedInstance()
+    
+    override func viewWillAppear(animated: Bool) {
+        self.view.backgroundColor = .blackColor()
+    }
 
     
     override func viewDidLoad() {
@@ -135,17 +139,7 @@ class NewSwimVC: UIViewController, SwimDataDelegate {
             hours.append(index)
         }
     
-        for index in 0..<200 {
-            lapLengthPickerData.append(index)
-        }
-
-        
-        
-        
         durationPicker.dataSource = self
-        lapLengthPicker.dataSource = self
-        
-        lapLengthPicker.delegate = self
         durationPicker.delegate = self
         
         
@@ -236,21 +230,28 @@ class NewSwimVC: UIViewController, SwimDataDelegate {
         dismissViewControllerAnimated(true, completion: nil)
     }
     
+
     func dismissKeypad() {
         if let embedded = embeddedVC {
-            if embedded.lapCountField.isFirstResponder() {
-                embedded.lapCountField.resignFirstResponder()
+            //find which field is active
+            if let activeField = embedded.findFirstResponder(self.view) as? UITextField {
+                if activeField.text == "" {
+                    //throw alert
+                    print("THROW ALERT")
+                } else {
+                    //remove toolbar
+                    if let toolbar = view.viewWithTag(111) {
+                        toolbar.removeFromSuperview()
+                    }
+                    //resign the textfields FR status
+                    activeField.resignFirstResponder()
+                }
             }
         }
     }
     
     
     @IBAction func dismissPickers(sender: AnyObject) {
-        
-        //set pace label
-        let metersPerMin = distance / (totalTimeInSeconds / 60)
-        let paceString = String(format: "%2.f m/min", metersPerMin)
-        embeddedVC?.paceLabel.text = paceString
         
         for picker in uiPickerViews {
             if picker.hidden == false {
@@ -287,11 +288,6 @@ class NewSwimVC: UIViewController, SwimDataDelegate {
         print("firing showPicker")
         dismissKeypad()
         
-        //dismiss toolbar if present
-        if let toolbar = view.viewWithTag(111) {
-            toolbar.removeFromSuperview()
-        }
-        
         toolbar.hidden = false
         saveButton.hidden = true
         switch tag {
@@ -303,15 +299,6 @@ class NewSwimVC: UIViewController, SwimDataDelegate {
                 picker.hidden = true
             }
             datePicker2.hidden = false
-
-        case 1:
-            print(tag)
-            
-            for picker in uiPickerViews {
-                print(picker)
-                picker.hidden = true
-            }
-            lapLengthPicker.hidden = false
         case 2:
             print(tag)
             for picker in uiPickerViews {
@@ -334,29 +321,23 @@ class NewSwimVC: UIViewController, SwimDataDelegate {
     func doneClicked() {
         print("doneclicked")
         
-        if embeddedVC?.lapCountField.text != "" {
-            //dismiss keypad
-            dismissKeypad()
-            distance = Double(lapCount * lapLength)
-            
-            print("Distance: \(distance)")
-            
-            //remove toolbar
-            if let toolbar = view.viewWithTag(111) {
-                toolbar.removeFromSuperview()
-            }
-        } else {
-            //throw alert if no value was entered
-            let alert = UIAlertController(title: "Error", message: "Please enter a value", preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-            self.presentViewController(alert, animated: true, completion: nil)
-        }
+        //dismiss keypad
+        dismissKeypad()
+        distance = Double(lapCount * lapLength)
+        
+        print("Distance: \(distance)")
     }
     
     func setTheLapCount(int: Int) {
         lapCount = int
         numberOfLapsSet = true
         print("lapcount is ----> \(lapCount)")
+    }
+    
+    func setTheLapLength(int: Int) {
+        lapLength = int
+         lapLengthSet = true
+        print("laplength is ----> \(lapLength)")
     }
     
     var keyboardHeight: CGFloat = 0.0
@@ -445,10 +426,6 @@ extension NewSwimVC: UIPickerViewDelegate, UIPickerViewDataSource {
     
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
 
-        if pickerView == lapLengthPicker {
-            return lapLengthPickerData.count
-        }
-        
         if pickerView == durationPicker {
             return hours.count
         } else {
@@ -458,20 +435,9 @@ extension NewSwimVC: UIPickerViewDelegate, UIPickerViewDataSource {
     
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
                 
-        if pickerView == lapLengthPicker
-        {
-            return String(lapLengthPickerData[row])
-        }
-//        else if pickerView == numberOfLapsPicker
-//        {
-//            //return String(numberOfLapsPickerData[row])
-//            return "problem"
-//        }
-        else if pickerView == durationPicker
-        {
+        if pickerView == durationPicker {
             return String(hours[row])
-        } else
-        {
+        } else {
             return "No title"
         }
     }
@@ -516,18 +482,36 @@ extension NewSwimVC: UIPickerViewDelegate, UIPickerViewDataSource {
             timeSet = true
             totalTimeInSeconds = Double(ss + (mm * 60) + (hh * 3600))
             print("Totaltimeinseconds: \(totalTimeInSeconds)")
-        } else if pickerView == lapLengthPicker {
-            print("doing something")
-            embeddedVC?.lapLengthLabel.text = String(lapLengthPickerData[row])
+
+            totalTimeInSeconds / distance
             
-            //set lap length
-            lapLengthSet = true
-            lapLength = lapLengthPickerData[row]
+//        }
+//        else if pickerView == lapLengthPicker {
+//            print("doing something")
+//            embeddedVC?.lapLengthLabel.text = String(lapLengthPickerData[row])
+//            
+//            //set lap length
+//            lapLengthSet = true
+//            lapLength = lapLengthPickerData[row]
         }
         else {
             //do something
             print("crashing here?")
         }
+        
+        //calculate pace after any picker is changed
+        
+        let metersPerMin = distance / (totalTimeInSeconds / 60)
+        var paceString = ""
+        
+        if metersPerMin.isNaN {
+            paceString = "0 m/min"
+        } else {
+            paceString = String(format: "%2.f m/min", metersPerMin)
+        }
+        
+        embeddedVC?.paceLabel.text = paceString
+        
     }
     
     

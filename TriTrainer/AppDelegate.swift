@@ -163,8 +163,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if (!currentlyTrackingWorkout) {
             //get the current logged in user's info (in case logged out and back in as another user)
             //this will refresh data and redirect to the main feed
-            model.getUserInfo()
-            model.contactsPlease()
+            //model.getUserInfo()
+            //model.contactsPlease()
         }
     }
 
@@ -190,10 +190,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         alertController.addAction(dismissAction)
         
-        let pushedViewControllers = (self.window?.rootViewController as! UITabBarController).viewControllers
-        let presentedViewController = pushedViewControllers![pushedViewControllers!.count - 1]
+        self.window?.rootViewController?.presentViewController(alertController, animated: true, completion: nil)
+
+        //let pushedViewControllers = (self.window?.rootViewController as! UITabBarController).viewControllers
+        //let presentedViewController = pushedViewControllers![pushedViewControllers!.count - 1]
         
-        presentedViewController.presentViewController(alertController, animated: true, completion: nil)
+        //presentedViewController.presentViewController(alertController, animated: true, completion: nil)
     }
     
     

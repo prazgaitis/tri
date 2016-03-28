@@ -20,6 +20,7 @@ class ProfileVC: UIViewController, PNChartDelegate {
     @IBOutlet weak var profilePhoto: UIImageView!
     @IBOutlet weak var barChartContainer: UIView!
     @IBOutlet weak var weekDistanceLabel: UILabel!
+    @IBOutlet weak var settingsButton: UIButton!
     
     let runButton = UIButton()
     let bikeButton = UIButton()
@@ -61,11 +62,14 @@ class ProfileVC: UIViewController, PNChartDelegate {
         for c in charts {
             if c.hidden == false {
                 c.strokeChart()
+                c.userInteractionEnabled = false
             }
         }
     }
     
     func setupButtons() {
+        settingsButton.addTarget(self, action: #selector(ProfileVC.showSettings), forControlEvents: .TouchUpInside)
+        
         print("setting up buttons")
         let screenwidth = self.view.frame.width
         let third = screenwidth / 3.0
@@ -160,6 +164,12 @@ class ProfileVC: UIViewController, PNChartDelegate {
             runLineChart.hidden = true
             bikeLineChart.hidden = true
         }
+    }
+    
+    func showSettings() {
+        let settingsVC = SettingsTVC()
+        let nav = UINavigationController(rootViewController: settingsVC)
+        presentViewController(nav, animated: true, completion: nil)
     }
     
     func setupView() {

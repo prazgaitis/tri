@@ -21,10 +21,8 @@ class SwimDataEntryTVC: UITableViewController, UITextFieldDelegate {
     @IBOutlet weak var dateCell: UITableViewCell!
     @IBOutlet weak var timeCell: UITableViewCell!
     @IBOutlet weak var paceCell: UITableViewCell!
-    
-    @IBOutlet weak var lapLengthLabel: UILabel!
-    //@IBOutlet weak var lapCountLabel: UILabel!
-    
+
+    @IBOutlet weak var lapLengthField: UITextField!
     @IBOutlet weak var lapCountField: UITextField!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
@@ -36,6 +34,10 @@ class SwimDataEntryTVC: UITableViewController, UITextFieldDelegate {
         print("loaded Swim data table")
         lapCountField.delegate = self
         lapCountField.attributedPlaceholder = NSAttributedString(string:"0 laps",
+            attributes:[NSForegroundColorAttributeName: UIColor.whiteColor()])
+        
+        lapLengthField.delegate = self
+        lapLengthField.attributedPlaceholder = NSAttributedString(string:"0 meters",
             attributes:[NSForegroundColorAttributeName: UIColor.whiteColor()])
         
         let formatter = NSDateFormatter()
@@ -70,6 +72,21 @@ class SwimDataEntryTVC: UITableViewController, UITextFieldDelegate {
         tableview.backgroundColor = UIColor.blackColor()
     }
     
+    func findFirstResponder(view: UIView) -> UIView? {
+        if view.isFirstResponder() {
+            return view
+        } else {
+            for sub in view.subviews {
+                if let subview = sub as? UIView,
+                    found = findFirstResponder(subview) {
+                        return found
+                }
+            }
+        }
+        return nil
+    }
+
+    
     //MARK: TextField Delegate methods
 
     
@@ -85,15 +102,13 @@ class SwimDataEntryTVC: UITableViewController, UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(textField: UITextField) {
-        print("textfield did end editing")
-        if textField.text == "" || textField.text == nil {
-            
-            //throw alert if no value was entered
-            let alert = UIAlertController(title: "Please enter a value", message: "", preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-        
-        } else {
+//        print("textfield did end editing")
+        if textField == lapCountField {
+            print("lapcountfield")
             delegate?.setTheLapCount(Int(textField.text!)!)
+        } else {
+            print("laplengthfield")
+            delegate?.setTheLapLength(Int(textField.text!)!)
         }
     }
 
@@ -110,4 +125,6 @@ protocol SwimDataDelegate: class {
     func makeToolbar(sender: AnyObject?) -> Void
     
     func setTheLapCount(int: Int) -> Void
+    
+    func setTheLapLength(int: Int) -> Void
 }

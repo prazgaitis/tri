@@ -24,6 +24,7 @@ class Model {
         return modelSingletonGlobal
     }
     
+    //delegates
     var delegate: ModelDelegate?
     
     //current user's details from CK
@@ -96,11 +97,53 @@ class Model {
                     self.getUserInfo()
                 } else {
                     print("-- Permission to access contacts not granted --")
+                    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                    appDelegate.showMessage("Error: \(error)")
+                    self.postData("error: \(error)", field2: "error in getPermission() in model.swift", field3: "0")
                 }
                 //hide network indicator
                 //UIApplication.sharedApplication().networkActivityIndicatorVisible = false
         })
     }
+    
+    
+    //function to post error data to Google docs
+    func postData(field1: String, field2: String, field3: String) {
+        
+        let data1 = field1.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
+        let data2 = field2.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
+        let data3 = field3.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
+        
+        print(data1!)
+        print(data2!)
+        print(data3!)
+        
+        let url: NSURL = NSURL(string: "https://docs.google.com/forms/d/1-T-bHj1sjJp6Df1nwYXYDANMibfyZsKGvR3-OF6XX6k/formResponse?ifq&entry.276372852=\(data1!)&entry.1434010333=\(data2!)&entry.2064025692=\(data3!)&submit=Submit")!
+        
+        let session = NSURLSession.sharedSession()
+        
+        let request = NSMutableURLRequest(URL: url)
+        
+        let task = session.dataTaskWithRequest(request) {
+            (
+            let data, let response, let error) in
+            
+            guard let _:NSData = data, let _:NSURLResponse = response  where error == nil else {
+                print("error")
+                
+                let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                appDelegate.showMessage("Error: \(error)")
+                return
+            }
+            
+            //let dataString = NSString(data: data!, encoding: NSUTF8StringEncoding)
+            //prints the webpage html
+            //print("datastring: \(dataString)")
+            
+        }
+        task.resume()
+    }
+
     
     
     func refresh() {
@@ -121,6 +164,10 @@ class Model {
             if error != nil {
                 dispatch_async(dispatch_get_main_queue()) {
                     self.delegate?.errorUpdating(error!)
+                    
+                    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                    appDelegate.showMessage("Error: \(error)")
+                    self.postData("error: \(error)", field2: "error in refresh() in model.swift", field3: "0")
                     print("error loading: \(error)")
                 }
             //else success:
@@ -244,7 +291,8 @@ class Model {
                     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
                     appDelegate.removeSplashView()
                     print("Cloudkit error: \(err)")
-                    appDelegate.showMessage("Network Unavailable\n\nThe Internet connection appears to be offline.")
+                    appDelegate.showMessage("Error: \(err)")
+                    self.postData("error: \(err)", field2: "error in contactsPlease() in model.swift", field3: "0")
                 }
             } else {
                 if let users = users {
@@ -289,6 +337,10 @@ class Model {
         container.discoverUserInfoWithUserRecordID(userRecordID, completionHandler: ({user, error in
             if let err = error {
                 print("There was an error: \(err)")
+
+                let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                appDelegate.showMessage("Error: \(err)")
+                self.postData("error: \(err)", field2: "error in whatsMyName() in model.swift", field3: "0")
             } else {
                 if let user = user {
                     if let userContactInfo = user.displayContact {
@@ -347,6 +399,10 @@ class Model {
                         dispatch_async(dispatch_get_main_queue()) {
                             self.delegate?.errorUpdating(error!)
                             print("error loading: \(error)")
+                            
+                            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                            appDelegate.showMessage("Error: \(error)")
+                            self.postData("error: \(error)", field2: "error in showOnlyMyActivites() in model.swift", field3: "0")
                         }
                     } else {
                         //error is nil - all good
