@@ -1,4 +1,3 @@
-# mpcs51030-2016-winter-project-prazgaitis
 ![Tri-trainer](http://i.imgur.com/ivM8ZMZ.png)
 
 # Tri
